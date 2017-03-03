@@ -11,6 +11,7 @@ import injectTapEventPlugin from "react-tap-event-plugin";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import ContentClear from "material-ui/svg-icons/content/clear";
+import ActionDelete from "material-ui/svg-icons/action/delete";
 import IconButton from "material-ui/IconButton";
 
 
@@ -24,7 +25,7 @@ const columnStyle = {
 class ModifyAmount extends Component {
     render() {
         return <div>
-            <RaisedButton style={{marginTop: "10px", marginLeft: "3px"}} fullWidth={true}
+            <RaisedButton style={{marginTop: "5px", marginBottom: "5px", marginLeft: "3px"}} fullWidth={true}
                           onClick={() => this.props.modifyAmount({i: this.props.index, d: this.props.diff})}>
                 {this.props.diff}円
             </RaisedButton>
@@ -34,7 +35,7 @@ class ModifyAmount extends Component {
 class ModifyNumber extends Component {
     render() {
         return <div>
-            <RaisedButton style={{marginTop: "10px", marginLeft: "3px"}} fullWidth={true}
+            <RaisedButton style={{marginTop: "5px", marginBottom: "5px", marginLeft: "3px"}} fullWidth={true}
                           onClick={() => this.props.modifyNumber({i: this.props.index, d: this.props.diff})}>
                 {this.props.diff}人
             </RaisedButton>
@@ -85,7 +86,7 @@ class RApp extends Component {
                                     <TableRowColumn style={columnStyle}>
                                         <div>
                                             <IconButton onClick={() => this.props.delEntry(i)}>
-                                                <ContentClear />
+                                                <ActionDelete />
                                             </IconButton>
                                         </div>
                                         <div>
