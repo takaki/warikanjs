@@ -6,12 +6,13 @@ import {connect} from "react-redux";
 import {createAction, handleActions} from "redux-actions";
 import {Table, TableBody, TableRow, TableRowColumn} from "material-ui/Table";
 import RaisedButton from "material-ui/RaisedButton";
-import {Immutable} from "immutable";
+import Immutable from "immutable";
 import injectTapEventPlugin from "react-tap-event-plugin";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import ContentClear from "material-ui/svg-icons/content/clear";
 import IconButton from "material-ui/IconButton";
+
 
 injectTapEventPlugin();
 
@@ -96,7 +97,8 @@ class RApp extends Component {
                         </TableBody>
                     </Table>
                     <div >
-                        <FloatingActionButton onClick={this.props.addEntry} mini={true} style={{marginTop: "10px"}}>
+                        <FloatingActionButton onClick={this.props.addEntry} mini={true}
+                                              style={{marginTop: "10px", marginBottom: "40px"}}>
                             <ContentAdd />
                         </FloatingActionButton>
                     </div>
