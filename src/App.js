@@ -6,14 +6,12 @@ import {connect} from "react-redux";
 import {createAction, handleActions} from "redux-actions";
 import {Table, TableBody, TableRow, TableRowColumn} from "material-ui/Table";
 import RaisedButton from "material-ui/RaisedButton";
-import Immutable from "immutable";
 import injectTapEventPlugin from "react-tap-event-plugin";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
-import ContentClear from "material-ui/svg-icons/content/clear";
 import ActionDelete from "material-ui/svg-icons/action/delete";
 import IconButton from "material-ui/IconButton";
-
+import Immutable, {Record, List} from "immutable";
 
 injectTapEventPlugin();
 
