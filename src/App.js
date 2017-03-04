@@ -92,7 +92,7 @@ class RApp extends Component {
                                                     <ActionDelete />
                                                 </IconButton>
                                             </div>
-                                            <div>
+                                            <div style={{marginRight: "5px"}}>
                                                 {e.total()} 円
                                             </div>
                                         </TableRowColumn>
