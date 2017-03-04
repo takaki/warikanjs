@@ -15,31 +15,23 @@ import DataState from "./model";
 
 injectTapEventPlugin();
 
-const columnStyle = {
-    paddingLeft: 0,
-    paddingRight: 0,
-    textAlign: "right",
-};
-
 class ModifyAmount extends Component {
     render() {
-        return <div>
-            <RaisedButton style={{marginTop: "5px", marginBottom: "5px", marginLeft: "3px"}} fullWidth={true}
-                          onClick={() => this.props.modifyAmount(this.props.diff)}>
-                {this.props.diff}円
-            </RaisedButton>
-        </div>
+        return <RaisedButton
+            style={{marginTop: "5px", marginBottom: "5px", marginLeft: "3px", minWidth: "30px", width: "50%"}}
+            onClick={() => this.props.modifyAmount(this.props.diff)}>
+            {this.props.diff > 0 ? "+" : ""}{this.props.diff}
+        </RaisedButton>
     }
 }
 
 class ModifyNumber extends Component {
     render() {
-        return <div>
-            <RaisedButton style={{marginTop: "5px", marginBottom: "5px", marginLeft: "3px"}} fullWidth={true}
-                          onClick={() => this.props.modifyNumber(this.props.diff)}>
-                {this.props.diff}人
-            </RaisedButton>
-        </div>
+        return <RaisedButton
+            style={{marginTop: "5px", marginBottom: "5px", marginLeft: "3px", minWidth: "30px", width: "50%"}}
+            onClick={() => this.props.modifyNumber(this.props.diff)}>
+            {this.props.diff > 0 ? "+" : ""}{this.props.diff}
+        </RaisedButton>
     }
 }
 
@@ -58,41 +50,66 @@ class RApp extends Component {
                                     const updateAmount = (d) => this.props.updateModel(this.props.data.modifyAmount(i, d));
                                     const updateNumber = (d) => this.props.updateModel(this.props.data.modifyNumber(i, d));
                                     return <TableRow key={i}>
-                                        <TableRowColumn style={columnStyle}>
-                                            <ModifyAmount diff={500} modifyAmount={updateAmount}/>
-                                            <ModifyAmount diff={100} modifyAmount={updateAmount}/>
-                                        </TableRowColumn >
-                                        <TableRowColumn style={columnStyle}>
-                                            <div style={{fontSize: "calc(75% + 1.0vw)", marginLeft: "2px"}}>
+                                        <TableRowColumn style={{
+                                            paddingLeft: 0,
+                                            paddingRight: "5px",
+                                            textAlign: "right",
+                                        }}>
+                                            <div >
+                                                <ModifyAmount diff={-500} modifyAmount={updateAmount}/>
+                                                <ModifyAmount diff={500} modifyAmount={updateAmount}/>
+                                            </div>
+                                            <div style={{
+                                                fontSize: "calc(150% + 1.5vw)",
+                                                marginBottom: "5px",
+                                                marginLeft: "2px",
+                                                height: "4vh",
+                                                textAlign: "center"
+                                            }}>
                                                 {e.get("amount")}円
                                             </div>
-                                        </TableRowColumn>
-                                        <TableRowColumn style={columnStyle}>
-                                            <ModifyAmount diff={-500} modifyAmount={updateAmount}/>
-                                            <ModifyAmount diff={-100} modifyAmount={updateAmount}/>
-                                        </TableRowColumn>
-
-                                        <TableRowColumn style={columnStyle}>
-                                            <ModifyNumber diff={5} modifyNumber={updateNumber}/>
-                                            <ModifyNumber diff={1} modifyNumber={updateNumber}/>
-                                        </TableRowColumn>
-                                        <TableRowColumn style={columnStyle}>
-                                            <div style={{fontSize: "calc(150% + 1.5vw)", marginLeft: "2px"}}>
-                                                {e.get("number")}人
+                                            <div >
+                                                <ModifyAmount diff={-100} modifyAmount={updateAmount}/>
+                                                <ModifyAmount diff={100} modifyAmount={updateAmount}/>
                                             </div>
                                         </TableRowColumn>
-                                        <TableRowColumn style={columnStyle}>
-                                            <ModifyNumber diff={-5} modifyNumber={updateNumber}/>
-                                            <ModifyNumber diff={-1} modifyNumber={updateNumber}/>
+
+                                        <TableRowColumn style={{
+                                            paddingLeft: "5px",
+                                            paddingRight: 0,
+                                            textAlign: "right",
+                                        }}>
+                                            <div >
+                                                <ModifyNumber diff={-5} modifyNumber={updateNumber}/>
+                                                <ModifyNumber diff={5} modifyNumber={updateNumber}/>
+                                            </div>
+                                            <div style={{
+                                                fontSize: "calc(150% + 1.5vw)",
+                                                marginBottom: "5px",
+                                                marginLeft: "2px",
+                                                height: "4vh",
+                                                textAlign: "center"
+                                            }}>
+                                                {e.get("number")}人
+                                            </div>
+                                            <div >
+                                                <ModifyNumber diff={-1} modifyNumber={updateNumber}/>
+                                                <ModifyNumber diff={1} modifyNumber={updateNumber}/>
+                                            </div>
                                         </TableRowColumn>
-                                        <TableRowColumn style={columnStyle}>
+                                        <TableRowColumn style={{
+                                            paddingLeft: 0,
+                                            paddingRight: 0,
+                                            textAlign: "center",
+                                            width: "60px",
+                                        }}>
                                             <div>
                                                 <IconButton
                                                     onClick={() => this.props.updateModel(this.props.data.delEntry(i))}>
                                                     <ActionDelete />
                                                 </IconButton>
                                             </div>
-                                            <div style={{marginRight: "5px"}}>
+                                            <div style={{marginRight: "0px"}}>
                                                 {e.total()} 円
                                             </div>
                                         </TableRowColumn>
