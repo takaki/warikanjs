@@ -30,6 +30,11 @@ test('modify', () => {
     expect(added.entry.get(1).number).toBe(12);
 });
 
+test('total', () => {
+    const added = ds.addEntry(1000, 1).addEntry(2000, 2).addEntry(3000, 3);
+    expect(added.total()).toBe(14000);
+});
+
 const es = new EntryState({amount: 1000, number: 10});
 
 test('new EntryState', () => {

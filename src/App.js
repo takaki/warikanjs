@@ -11,7 +11,7 @@ import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import ActionDelete from "material-ui/svg-icons/action/delete";
 import IconButton from "material-ui/IconButton";
-import Immutable, {Record, List} from "immutable";
+import DataState from "./model";
 
 injectTapEventPlugin();
 
@@ -46,13 +46,13 @@ class RApp extends Component {
         return (
             <MuiThemeProvider>
                 <div className="App">
+                    <h1>調整付割勘計算</h1>
                     <div style={{fontSize: "calc(100% + 2.0vw)"}}>
-                        合計: {this.props.entry.map(d => d.get("amount") * d.get("number")).reduce((a, b) => a + b)} 円
-                        ( {this.props.entry.map(d => d.get("number")).reduce((a, b) => a + b)} 人)
+                        合計: {this.props.data.total()} 円 ( {this.props.data.totalNumber()} 人)
                     </div>
                     <Table selectable={false}>
                         <TableBody displayRowCheckbox={false} stripedRows={true}>
-                            {this.props.entry.map((e, i) =>
+                            {this.props.data.entry.toKeyedSeq().map((e, i) =>
                                 <TableRow key={i}>
                                     <TableRowColumn style={columnStyle}>
                                         <ModifyAmount index={i} diff={500} modifyAmount={this.props.modifyAmount}/>
@@ -88,11 +88,11 @@ class RApp extends Component {
                                             </IconButton>
                                         </div>
                                         <div>
-                                            {e.get("amount") * e.get("number")} 円
+                                            {e.total()} 円
                                         </div>
                                     </TableRowColumn>
                                 </TableRow>
-                            )}
+                            ).toArray()}
                         </TableBody>
                     </Table>
                     <div >
@@ -112,34 +112,13 @@ const delEntry = createAction('DEL_ENTRY');
 const modifyAmount = createAction('MODIFY_AMOUNT');
 const modifyNumber = createAction("MODIFY_NUMBER");
 
-const initialState = {
-    entry: Immutable.fromJS([{
-        amount: 1000,
-        number: 1
-    }])
-};
+const initialState = new DataState().addEntry(1000, 1);
 
 const reducer = handleActions({
-        [addEntry]: (state, action) => Object.assign({}, state, {
-            entry: state.entry.push(Immutable.Map({amount: 0, number: 1}))
-        }),
-        [delEntry]: (state, action) => Object.assign({}, state, {
-            entry: state.entry.delete(action.payload)
-        }),
-        [modifyAmount]: (state, action) => {
-            const i = action.payload.i;
-            const d = action.payload.d;
-            return Object.assign({}, state, {
-                entry: state.entry.update(i, v => v.update('amount', x => x + d > 0 ? x + d : 0))
-            });
-        },
-        [modifyNumber]: (state, action) => {
-            const i = action.payload.i;
-            const d = action.payload.d;
-            return Object.assign({}, state, {
-                entry: state.entry.update(i, v => v.update('number', x => x + d > 0 ? x + d : 0))
-            });
-        }
+        [addEntry]: (state, action) => state.addEntry(0, 1),
+        [delEntry]: (state, action) => state.delEntry(action.payload),
+        [modifyAmount]: (state, action) => state.modifyAmount(action.payload.i, action.payload.d),
+        [modifyNumber]: (state, action) => state.modifyNumber(action.payload.i, action.payload.d),
     },
     initialState
 );
@@ -147,7 +126,7 @@ const reducer = handleActions({
 const store = createStore(reducer);
 
 function mapStateToProps(state, props) {
-    return state
+    return {data: state}
 }
 
 function mapDispatchToProps(dispatch, props) {
