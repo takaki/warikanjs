@@ -20,6 +20,7 @@ const columnStyle = {
     paddingRight: 0,
     textAlign: "right",
 };
+
 class ModifyAmount extends Component {
     render() {
         return <div>
@@ -30,6 +31,7 @@ class ModifyAmount extends Component {
         </div>
     }
 }
+
 class ModifyNumber extends Component {
     render() {
         return <div>
@@ -52,55 +54,50 @@ class RApp extends Component {
                     </div>
                     <Table selectable={false}>
                         <TableBody displayRowCheckbox={false} stripedRows={true}>
-                            {this.props.data.entry.toKeyedSeq().map((e, i) =>
-                                <TableRow key={i}>
-                                    <TableRowColumn style={columnStyle}>
-                                        <ModifyAmount diff={500}
-                                                      modifyAmount={(d) => this.props.updateModel(this.props.data.modifyAmount(i, d))}/>
-                                        <ModifyAmount diff={100}
-                                                      modifyAmount={(d) => this.props.updateModel(this.props.data.modifyAmount(i, d))}/>
-                                    </TableRowColumn >
-                                    <TableRowColumn style={columnStyle}>
-                                        <div style={{fontSize: "calc(75% + 1.0vw)", marginLeft: "2px"}}>
-                                            {e.get("amount")}円
-                                        </div>
-                                    </TableRowColumn>
-                                    <TableRowColumn style={columnStyle}>
-                                        <ModifyAmount diff={-500}
-                                                      modifyAmount={(d) => this.props.updateModel(this.props.data.modifyAmount(i, d))}/>
-                                        <ModifyAmount diff={-100}
-                                                      modifyAmount={(d) => this.props.updateModel(this.props.data.modifyAmount(i, d))}/>
-                                    </TableRowColumn>
+                            {this.props.data.entry.toKeyedSeq().map((e, i) => {
+                                    const updateAmount = (d) => this.props.updateModel(this.props.data.modifyAmount(i, d));
+                                    const updateNumber = (d) => this.props.updateModel(this.props.data.modifyNumber(i, d));
+                                    return <TableRow key={i}>
+                                        <TableRowColumn style={columnStyle}>
+                                            <ModifyAmount diff={500} modifyAmount={updateAmount}/>
+                                            <ModifyAmount diff={100} modifyAmount={updateAmount}/>
+                                        </TableRowColumn >
+                                        <TableRowColumn style={columnStyle}>
+                                            <div style={{fontSize: "calc(75% + 1.0vw)", marginLeft: "2px"}}>
+                                                {e.get("amount")}円
+                                            </div>
+                                        </TableRowColumn>
+                                        <TableRowColumn style={columnStyle}>
+                                            <ModifyAmount diff={-500} modifyAmount={updateAmount}/>
+                                            <ModifyAmount diff={-100} modifyAmount={updateAmount}/>
+                                        </TableRowColumn>
 
-                                    <TableRowColumn style={columnStyle}>
-                                        <ModifyNumber diff={5}
-                                                      modifyNumber={(d) => this.props.updateModel(this.props.data.modifyNumber(i, d))}/>
-                                        <ModifyNumber diff={1}
-                                                      modifyNumber={(d) => this.props.updateModel(this.props.data.modifyNumber(i, d))}/>
-                                    </TableRowColumn>
-                                    <TableRowColumn style={columnStyle}>
-                                        <div style={{fontSize: "calc(150% + 1.5vw)", marginLeft: "2px"}}>
-                                            {e.get("number")}人
-                                        </div>
-                                    </TableRowColumn>
-                                    <TableRowColumn style={columnStyle}>
-                                        <ModifyNumber diff={-5}
-                                                      modifyNumber={(d) => this.props.updateModel(this.props.data.modifyNumber(i, d))}/>
-                                        <ModifyNumber diff={-1}
-                                                      modifyNumber={(d) => this.props.updateModel(this.props.data.modifyNumber(i, d))}/>
-                                    </TableRowColumn>
-                                    <TableRowColumn style={columnStyle}>
-                                        <div>
-                                            <IconButton
-                                                onClick={() => this.props.updateModel(this.props.data.delEntry(i))}>
-                                                <ActionDelete />
-                                            </IconButton>
-                                        </div>
-                                        <div>
-                                            {e.total()} 円
-                                        </div>
-                                    </TableRowColumn>
-                                </TableRow>
+                                        <TableRowColumn style={columnStyle}>
+                                            <ModifyNumber diff={5} modifyNumber={updateNumber}/>
+                                            <ModifyNumber diff={1} modifyNumber={updateNumber}/>
+                                        </TableRowColumn>
+                                        <TableRowColumn style={columnStyle}>
+                                            <div style={{fontSize: "calc(150% + 1.5vw)", marginLeft: "2px"}}>
+                                                {e.get("number")}人
+                                            </div>
+                                        </TableRowColumn>
+                                        <TableRowColumn style={columnStyle}>
+                                            <ModifyNumber diff={-5} modifyNumber={updateNumber}/>
+                                            <ModifyNumber diff={-1} modifyNumber={updateNumber}/>
+                                        </TableRowColumn>
+                                        <TableRowColumn style={columnStyle}>
+                                            <div>
+                                                <IconButton
+                                                    onClick={() => this.props.updateModel(this.props.data.delEntry(i))}>
+                                                    <ActionDelete />
+                                                </IconButton>
+                                            </div>
+                                            <div>
+                                                {e.total()} 円
+                                            </div>
+                                        </TableRowColumn>
+                                    </TableRow>;
+                                }
                             ).toArray()}
                         </TableBody>
                     </Table>
@@ -120,7 +117,6 @@ class RApp extends Component {
 const updateModel = createAction("UPDATE_MODEL");
 
 const initialState = new DataState().addEntry(1000, 1);
-
 
 const reducer = handleActions({
         [updateModel]: (state, action) => action.payload,
