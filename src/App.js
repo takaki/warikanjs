@@ -17,9 +17,8 @@ injectTapEventPlugin();
 
 class ModifyAmount extends Component {
     render() {
-        return <RaisedButton
-            style={{marginTop: "5px", marginBottom: "5px", marginLeft: "3px", minWidth: "30px", width: "50%"}}
-            onClick={() => this.props.modifyAmount(this.props.diff)}>
+        return <RaisedButton className="or-modify-amount"
+                             onClick={() => this.props.modifyAmount(this.props.diff)}>
             {this.props.diff > 0 ? "+" : ""}{this.props.diff}
         </RaisedButton>
     }
@@ -27,9 +26,8 @@ class ModifyAmount extends Component {
 
 class ModifyNumber extends Component {
     render() {
-        return <RaisedButton
-            style={{marginTop: "5px", marginBottom: "5px", marginLeft: "3px", minWidth: "30px", width: "50%"}}
-            onClick={() => this.props.modifyNumber(this.props.diff)}>
+        return <RaisedButton className="or-modify-number"
+                             onClick={() => this.props.modifyNumber(this.props.diff)}>
             {this.props.diff > 0 ? "+" : ""}{this.props.diff}
         </RaisedButton>
     }
@@ -40,8 +38,7 @@ class RApp extends Component {
         return (
             <MuiThemeProvider>
                 <div className="App">
-
-                    <div style={{fontSize: "calc(100% + 2.0vw)"}}>
+                    <div className="total-line">
                         合計: {this.props.data.total()} 円 ( {this.props.data.totalNumber()} 人)
                     </div>
                     <Table selectable={false}>
@@ -50,22 +47,13 @@ class RApp extends Component {
                                     const updateAmount = (d) => this.props.updateModel(this.props.data.modifyAmount(i, d));
                                     const updateNumber = (d) => this.props.updateModel(this.props.data.modifyNumber(i, d));
                                     return <TableRow key={i}>
-                                        <TableRowColumn style={{
-                                            paddingLeft: 0,
-                                            paddingRight: "5px",
-                                            textAlign: "right",
-                                        }}>
+                                        <TableRowColumn className="or-amount-column">
                                             <div >
-                                                <ModifyAmount diff={-500} modifyAmount={updateAmount}/>
+                                                <ModifyAmount diff={-500} className="or-modify-amount"
+                                                              modifyAmount={updateAmount}/>
                                                 <ModifyAmount diff={500} modifyAmount={updateAmount}/>
                                             </div>
-                                            <div style={{
-                                                fontSize: "calc(150% + 1.5vw)",
-                                                marginBottom: "5px",
-                                                marginLeft: "2px",
-                                                height: "4vh",
-                                                textAlign: "center"
-                                            }}>
+                                            <div className="amount-line">
                                                 {e.get("amount")}円
                                             </div>
                                             <div >
@@ -74,22 +62,12 @@ class RApp extends Component {
                                             </div>
                                         </TableRowColumn>
 
-                                        <TableRowColumn style={{
-                                            paddingLeft: "5px",
-                                            paddingRight: 0,
-                                            textAlign: "right",
-                                        }}>
+                                        <TableRowColumn className="or-number-colomn">
                                             <div >
                                                 <ModifyNumber diff={-5} modifyNumber={updateNumber}/>
                                                 <ModifyNumber diff={5} modifyNumber={updateNumber}/>
                                             </div>
-                                            <div style={{
-                                                fontSize: "calc(150% + 1.5vw)",
-                                                marginBottom: "5px",
-                                                marginLeft: "2px",
-                                                height: "4vh",
-                                                textAlign: "center"
-                                            }}>
+                                            <div className="number-line">
                                                 {e.get("number")}人
                                             </div>
                                             <div >
@@ -97,19 +75,14 @@ class RApp extends Component {
                                                 <ModifyNumber diff={1} modifyNumber={updateNumber}/>
                                             </div>
                                         </TableRowColumn>
-                                        <TableRowColumn style={{
-                                            paddingLeft: 0,
-                                            paddingRight: 0,
-                                            textAlign: "center",
-                                            width: "60px",
-                                        }}>
+                                        <TableRowColumn className="or-subtotal-column">
                                             <div>
                                                 <IconButton
                                                     onClick={() => this.props.updateModel(this.props.data.delEntry(i))}>
                                                     <ActionDelete />
                                                 </IconButton>
                                             </div>
-                                            <div style={{marginRight: "0px"}}>
+                                            <div className="subtotal-line">
                                                 {e.total()} 円
                                             </div>
                                         </TableRowColumn>
@@ -120,8 +93,8 @@ class RApp extends Component {
                     </Table>
                     <div >
                         <FloatingActionButton onClick={() => this.props.updateModel(this.props.data.addEntry(1000, 1))}
-                                              mini={true}
-                                              style={{marginTop: "10px", marginBottom: "40px"}}>
+                                              mini={true} className="or-plus-button"
+                        >
                             <ContentAdd />
                         </FloatingActionButton>
                     </div>
