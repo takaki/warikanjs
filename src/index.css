@@ -51,7 +51,7 @@ body {
     padding-left: 0 !important;
     padding-right: 0 !important;
     text-align: center !important;
-    width: 60px !important;
+    width: calc(60px + 1.0vw) !important;
     vertical-align: top;
 }
 
@@ -63,14 +63,11 @@ body {
 .subtotal-box {
     margin-right: 0;
     height: 50%;
-    display: table;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center ;
 }
 .subtotal-line {
-    line-height: 100%;
-    display: table-cell;
-    padding-left: 0.5em;
-    vertical-align: middle;
 }
 
 .or-plus-button {
