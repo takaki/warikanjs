@@ -9,8 +9,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import injectTapEventPlugin from "react-tap-event-plugin";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
-import ActionDelete from "material-ui/svg-icons/action/delete";
-import IconButton from "material-ui/IconButton";
+import ContentRemove from "material-ui/svg-icons/content/remove";
 import DataState from "./model";
 
 injectTapEventPlugin();
@@ -76,14 +75,13 @@ class RApp extends Component {
                                             </div>
                                         </TableRowColumn>
                                         <TableRowColumn className="or-subtotal-column">
-                                            <div>
-                                                <IconButton
-                                                    onClick={() => this.props.updateModel(this.props.data.delEntry(i))}>
-                                                    <ActionDelete />
-                                                </IconButton>
-                                            </div>
-                                            <div className="subtotal-line">
-                                                {e.total()} 円
+                                            <FloatingActionButton mini={true} secondary={true}
+                                                                  className="or-trash-button"
+                                                                  onClick={() => this.props.updateModel(this.props.data.delEntry(i))}>
+                                                <ContentRemove />
+                                            </FloatingActionButton>
+                                            <div className="subtotal-box">
+                                                <span className="subtotal-line">{e.total()} 円</span>
                                             </div>
                                         </TableRowColumn>
                                     </TableRow>;
