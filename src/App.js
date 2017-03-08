@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import "./App.css";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import {createStore} from "redux";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {createAction, handleActions} from "redux-actions";
 import {Table, TableBody, TableRow, TableRowColumn} from "material-ui/Table";
 import RaisedButton from "material-ui/RaisedButton";
@@ -11,6 +10,7 @@ import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import ContentRemove from "material-ui/svg-icons/content/remove";
 import DataState from "./model";
+import {createStore} from "redux";
 
 injectTapEventPlugin();
 
@@ -48,8 +48,7 @@ class RApp extends Component {
                                     return <TableRow key={i}>
                                         <TableRowColumn className="or-amount-column">
                                             <div >
-                                                <ModifyAmount diff={-500} className="or-modify-amount"
-                                                              modifyAmount={updateAmount}/>
+                                                <ModifyAmount diff={-500} modifyAmount={updateAmount}/>
                                                 <ModifyAmount diff={500} modifyAmount={updateAmount}/>
                                             </div>
                                             <div className="amount-line">
@@ -112,7 +111,7 @@ const reducer = handleActions({
     initialState
 );
 
-export const store = createStore(reducer);
+const store = createStore(reducer);
 
 function mapStateToProps(state, props) {
     return {data: state}
@@ -127,6 +126,13 @@ function mapDispatchToProps(dispatch, props) {
 
 }
 
-const App = connect(mapStateToProps, mapDispatchToProps)(RApp);
+class App extends Component {
+    render() {
+        const DApp = connect(mapStateToProps, mapDispatchToProps)(RApp);
+        return <Provider store={store}>
+            <DApp />
+        </Provider>
+    }
+}
 
 export default App;
