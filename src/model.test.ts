@@ -1,6 +1,5 @@
 import DataState from './model';
-import {EntryState} from './model'
-
+import {EntryState} from './model';
 
 const ds = new DataState();
 
@@ -8,7 +7,7 @@ test('init DataState', () => {
     expect(ds.entry.size).toBe(0);
 });
 
-test("addEntry", () => {
+test('addEntry', () => {
     const added = ds.addEntry(1000, 1);
     expect(added.entry.size).toBe(1);
     expect(added.entry.get(0).amount).toBe(1000);
@@ -23,7 +22,7 @@ test('delEntry', () => {
 });
 
 test('modify', () => {
-    const added = ds.addEntry(1000, 1).addEntry(2000, 2).modifyAmount(0,100).modifyNumber(1,10);
+    const added = ds.addEntry(1000, 1).addEntry(2000, 2).modifyAmount(0, 100).modifyNumber(1, 10);
     expect(added.entry.get(0).amount).toBe(1100);
     expect(added.entry.get(0).number).toBe(1);
     expect(added.entry.get(1).amount).toBe(2000);
