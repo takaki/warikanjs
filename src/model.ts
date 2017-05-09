@@ -13,7 +13,7 @@ export class EntryState extends Record({amount: 0, number: 0}) {
     }
 
     total() {
-        return this.get('amount') * this.get('number');
+        return this.amount * this.number;
     }
 
     modify(x: number, d: number) {
