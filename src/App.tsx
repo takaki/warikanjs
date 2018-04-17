@@ -1,17 +1,18 @@
 import * as React from 'react';
 import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {connect, Provider, Dispatch} from 'react-redux';
-import {createAction, handleActions, Action} from 'redux-actions';
-import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
+import { connect, Provider, Dispatch } from 'react-redux';
+import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as injectTapEventPlugin from 'react-tap-event-plugin';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentRemove from 'material-ui/svg-icons/content/remove';
-import DataState, {EntryState} from './model';
-import {createStore} from 'redux';
+import DataState, { EntryState } from './model';
+import { createStore } from 'redux';
 import Component = React.Component;
+import actionCreatorFactory from 'typescript-fsa';
+import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
 injectTapEventPlugin();
 
@@ -25,7 +26,7 @@ interface ModifierNumberProps {
     modifyNumber: (d: number) => void;
 }
 
-class ModifyAmount extends React.Component<ModifierAmountProps, undefined> {
+class ModifyAmount extends React.Component<ModifierAmountProps, {}> {
     render() {
         return (
             <RaisedButton className="or-modify-amount" onClick={() => this.props.modifyAmount(this.props.diff)}>
@@ -34,7 +35,7 @@ class ModifyAmount extends React.Component<ModifierAmountProps, undefined> {
     }
 }
 
-class ModifyNumber extends Component<ModifierNumberProps, undefined> {
+class ModifyNumber extends Component<ModifierNumberProps, {}> {
     render() {
         return (
             <RaisedButton className="or-modify-number" onClick={() => this.props.modifyNumber(this.props.diff)}>
@@ -42,11 +43,13 @@ class ModifyNumber extends Component<ModifierNumberProps, undefined> {
             </RaisedButton>);
     }
 }
+
 interface AppProps {
     data: DataState;
     updateModel: (d: DataState) => void;
 }
-class RApp extends Component<AppProps, undefined> {
+
+class RApp extends Component<AppProps, {}> {
     render() {
         return (
             <MuiThemeProvider>
@@ -64,28 +67,28 @@ class RApp extends Component<AppProps, undefined> {
                                     return (
                                         <TableRow key={i}>
                                             <TableRowColumn className="or-amount-column">
-                                                <div >
+                                                <div>
                                                     <ModifyAmount diff={-500} modifyAmount={updateAmount}/>
                                                     <ModifyAmount diff={500} modifyAmount={updateAmount}/>
                                                 </div>
                                                 <div className="amount-line">
                                                     {e.get('amount')}円
                                                 </div>
-                                                <div >
+                                                <div>
                                                     <ModifyAmount diff={-100} modifyAmount={updateAmount}/>
                                                     <ModifyAmount diff={100} modifyAmount={updateAmount}/>
                                                 </div>
                                             </TableRowColumn>
 
                                             <TableRowColumn className="or-number-colomn">
-                                                <div >
+                                                <div>
                                                     <ModifyNumber diff={-5} modifyNumber={updateNumber}/>
                                                     <ModifyNumber diff={5} modifyNumber={updateNumber}/>
                                                 </div>
                                                 <div className="number-line">
                                                     {e.get('number')}人
                                                 </div>
-                                                <div >
+                                                <div>
                                                     <ModifyNumber diff={-1} modifyNumber={updateNumber}/>
                                                     <ModifyNumber diff={1} modifyNumber={updateNumber}/>
                                                 </div>
@@ -97,7 +100,7 @@ class RApp extends Component<AppProps, undefined> {
                                                     className="or-trash-button"
                                                     onClick={() => this.props.updateModel(this.props.data.delEntry(i))}
                                                 >
-                                                    <ContentRemove />
+                                                    <ContentRemove/>
                                                 </FloatingActionButton>
                                                 <div className="subtotal-box">
                                                     <span className="subtotal-line">{e.total()} 円</span>
@@ -108,13 +111,13 @@ class RApp extends Component<AppProps, undefined> {
                             ).toArray()}
                         </TableBody>
                     </Table>
-                    <div >
+                    <div>
                         <FloatingActionButton
                             onClick={() => this.props.updateModel(this.props.data.addEntry(1000, 1))}
                             mini={true}
                             className="or-plus-button"
                         >
-                            <ContentAdd />
+                            <ContentAdd/>
                         </FloatingActionButton>
                     </div>
                 </div>
@@ -123,13 +126,16 @@ class RApp extends Component<AppProps, undefined> {
     }
 }
 
+const actionCreator = actionCreatorFactory();
+
 const initialState = new DataState().addEntry(1000, 1);
 
-const updateModel = createAction<DataState>('UPDATE_MODEL');
+const updateModel = actionCreator<DataState>('UPDATE_MODEL');
 
-const reducer = handleActions<DataState>(
-    {['UPDATE_MODEL']: (state: DataState, action: Action<DataState>) => action.payload},
-    initialState);
+const reducer = reducerWithInitialState(initialState)
+    .caseWithAction(updateModel, (state, action) => {
+        return action.payload;
+    });
 
 const store = createStore(reducer);
 
@@ -146,12 +152,12 @@ function mapDispatchToProps(dispatch: Dispatch<DataState>) {
 
 }
 
-class App extends Component<undefined, undefined> {
+class App extends Component<{}, {}> {
     render() {
         const DApp = connect(mapStateToProps, mapDispatchToProps)(RApp);
         return (
             <Provider store={store}>
-                <DApp />
+                <DApp/>
             </Provider>);
     }
 }
