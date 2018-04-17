@@ -1,5 +1,5 @@
 import DataState from './model';
-import {EntryState} from './model';
+import { EntryState } from './model';
 
 const ds = new DataState();
 

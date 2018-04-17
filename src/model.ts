@@ -1,23 +1,23 @@
-import {Record, List} from 'immutable';
+import { Record, List } from 'immutable';
 
 export class EntryState extends Record({amount: 0, number: 0}) {
     amount: number;
     number: number;
 
+    static modify(x: number, d: number) {
+        return Math.max(x + d, 0);
+    }
+
     modifyAmount(diff: number) {
-        return new EntryState(this.set('amount', this.modify(this.amount, diff)));
+        return new EntryState(this.set('amount', EntryState.modify(this.amount, diff)));
     }
 
     modifyNumber(diff: number) {
-        return new EntryState(this.set('number', this.modify(this.number, diff)));
+        return new EntryState(this.set('number', EntryState.modify(this.number, diff)));
     }
 
     total() {
         return this.amount * this.number;
-    }
-
-    modify(x: number, d: number) {
-        return x + d > 0 ? x + d : 0;
     }
 
 }

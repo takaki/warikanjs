@@ -3,6 +3,6 @@
 //   ReactDOM.render(<App />, div);
 // });
 it('renders without crashing', () => {
-        return undefined
+        return undefined;
     }
 );
