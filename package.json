@@ -3,20 +3,11 @@
   "version": "0.2.0",
   "private": true,
   "homepage": "https://takaki.github.io/warikanjs/",
-  "devDependencies": {
-    "@types/jest": "^22.2.3",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-runtime": "^6.26.0",
-    "gh-pages": "^1.0.0",
-    "react-scripts-ts": "^2.15.1",
-    "typescript": "^2.8.1"
-  },
   "dependencies": {
-    "@types/material-ui": "^0.21.1",
-    "@types/react": "^16.3.11",
+    "@types/material-ui": "^0.21.2",
+    "@types/react": "^16.3.12",
     "@types/react-dom": "^16.0.5",
-    "@types/react-redux": "^5.0.16",
+    "@types/react-redux": "^5.0.18",
     "@types/react-tap-event-plugin": "^0.0.30",
     "@types/redux-actions": "^2.2.4",
     "immutable": "^3.8.1",
@@ -25,7 +16,7 @@
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.4",
     "react-tap-event-plugin": "^3.0.2",
-    "redux": "^3.6.0",
+    "redux": "^4.0.0",
     "redux-actions": "^2.0.2",
     "tslint": "^5.9.1"
   },
@@ -36,5 +27,14 @@
     "eject": "react-scripts-ts eject",
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.2.3",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-runtime": "^6.26.0",
+    "gh-pages": "^1.0.0",
+    "react-scripts-ts": "^2.15.1",
+    "typescript": "^2.8.3"
   }
 }
