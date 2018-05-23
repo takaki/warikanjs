@@ -1,4 +1,4 @@
-import DataState from './model';
+import DataState from './dataState';
 import { EntryState } from './model';
 
 const ds = new DataState();
