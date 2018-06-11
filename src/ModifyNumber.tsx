@@ -1,4 +1,5 @@
-import RaisedButton from '@material-ui/core/Button'
+import { Button } from "@material-ui/core";
+import { ChevronLeft, ChevronRight } from "@material-ui/icons";
 import * as React from "react";
 
 interface IModifierNumberProps {
@@ -18,8 +19,9 @@ export class ModifyNumber extends React.Component<IModifierNumberProps> {
 
     public render() {
         return (
-            <RaisedButton className="or-modify-number" onClick={this.update}>
-                {this.props.diff > 0 ? '+' : ''}{this.props.diff}
-            </RaisedButton>);
+            <Button variant="outlined" disableRipple={true} className="or-modify-number" onClick={this.update}>
+                {this.props.diff > 0 ? (this.props.diff === 1 ? <ChevronRight/> : <><ChevronRight/><ChevronRight/></>) :
+                    (this.props.diff === -1 ? <ChevronLeft/> : <><ChevronLeft/><ChevronLeft/></>)}
+            </Button>);
     }
 }
