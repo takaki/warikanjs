@@ -1,6 +1,6 @@
 import { Button, Table, TableBody, TableCell, TableRow } from "@material-ui/core";
+import { Delete } from "@material-ui/icons";
 import ContentAdd from '@material-ui/icons/Add';
-import ContentRemove from '@material-ui/icons/Remove';
 import * as React from "react";
 import DataState from "./dataState";
 import { EntryState } from "./model";
@@ -24,8 +24,16 @@ export class RApp extends React.Component<IAppProps> {
         this.props.updateModel(this.props.data.addEntry(1000, 1))
     }
 
-    public delEntry(i: number){
+    public delEntry(i: number) {
         this.props.updateModel(this.props.data.delEntry(i))
+    }
+
+    public updateAmount(i: number, d: number) {
+        this.props.updateModel(this.props.data.modifyAmount(i, d));
+    }
+
+    public updateNumber(i: number, d: number) {
+        this.props.updateModel(this.props.data.modifyNumber(i, d));
     }
 
     public render() {
@@ -37,46 +45,55 @@ export class RApp extends React.Component<IAppProps> {
                 <Table>
                     <TableBody>
                         {this.props.data.entry.toKeyedSeq().map((e: EntryState, i: number) => {
-                                const updateAmount = (d: number) =>
-                                    this.props.updateModel(this.props.data.modifyAmount(i, d));
-                                const updateNumber = (d: number) =>
-                                    this.props.updateModel(this.props.data.modifyNumber(i, d));
                                 return (
-                                    <TableRow key={i}>
-                                        <TableCell className="or-amount-column">
-                                            <div>
-                                                <ModifyAmount diff={-500} modifyAmount={updateAmount}/>
-                                                <ModifyAmount diff={500} modifyAmount={updateAmount}/>
-                                            </div>
-                                            <div className="amount-line">
-                                                {e.get('amount')}円
-                                            </div>
-                                            <div>
-                                                <ModifyAmount diff={-100} modifyAmount={updateAmount}/>
-                                                <ModifyAmount diff={100} modifyAmount={updateAmount}/>
-                                            </div>
-                                        </TableCell>
-
-                                        <TableCell className="or-number-colomn">
-                                            <div>
-                                                <ModifyNumber diff={-5} modifyNumber={updateNumber}/>
-                                                <ModifyNumber diff={5} modifyNumber={updateNumber}/>
-                                            </div>
-                                            <div className="number-line">
-                                                {e.get('number')}人
-                                            </div>
-                                            <div>
-                                                <ModifyNumber diff={-1} modifyNumber={updateNumber}/>
-                                                <ModifyNumber diff={1} modifyNumber={updateNumber}/>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell className="or-subtotal-column">
-                                            {this.renderDelButton(i)}
-                                            <div className="subtotal-box">
-                                                <span className="subtotal-line">{e.total()} 円</span>
-                                            </div>
-                                        </TableCell>
-                                    </TableRow>);
+                                    <React.Fragment key={i}>
+                                        <TableRow>
+                                            <TableCell className="or-amount-column">
+                                                <ModifyAmount diff={-500} modifyAmount={this.updateAmount.bind(this, i)}/>
+                                            </TableCell>
+                                            <TableCell className="or-amount-column">
+                                                <ModifyAmount diff={-100} modifyAmount={this.updateAmount.bind(this, i)}/>
+                                            </TableCell>
+                                            <TableCell className="or-amount-column">
+                                                <div className="amount-line">
+                                                    {e.get('amount')}円
+                                                </div>
+                                            </TableCell>
+                                            <TableCell className="or-amount-column">
+                                                <ModifyAmount diff={100} modifyAmount={this.updateAmount.bind(this, i)}/>
+                                            </TableCell>
+                                            <TableCell className="or-amount-column">
+                                                <ModifyAmount diff={500} modifyAmount={this.updateAmount.bind(this, i)}/>
+                                            </TableCell>
+                                            <TableCell className="or-subtotal-column">
+                                                {this.renderDelButton(i)}
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell className="or-number-colomn">
+                                                <ModifyNumber diff={-5} modifyNumber={this.updateNumber.bind(this, i)}/>
+                                            </TableCell>
+                                            <TableCell className="or-number-colomn">
+                                                <ModifyNumber diff={-1} modifyNumber={this.updateNumber.bind(this, i)}/>
+                                            </TableCell>
+                                            <TableCell className="or-number-colomn">
+                                                <div className="number-line">
+                                                    {e.get('number')}人
+                                                </div>
+                                            </TableCell>
+                                            <TableCell className="or-number-colomn">
+                                                <ModifyNumber diff={1} modifyNumber={this.updateNumber.bind(this, i)}/>
+                                            </TableCell>
+                                            <TableCell className="or-number-colomn">
+                                                <ModifyNumber diff={5} modifyNumber={this.updateNumber.bind(this, i)}/>
+                                            </TableCell>
+                                            <TableCell className="or-subtotal-column">
+                                                <div className="subtotal-box">
+                                                    <span className="subtotal-line">{e.total()} 円</span>
+                                                </div>
+                                            </TableCell>
+                                        </TableRow>
+                                    </React.Fragment>);
                             }
                         ).toArray()}
                     </TableBody>
@@ -97,13 +114,13 @@ export class RApp extends React.Component<IAppProps> {
     }
 
     private renderDelButton(i: number) {
-        return (<Button variant="fab"
+        return (<Button
                         color="primary"
                         mini={true}
                         className="or-trash-button"
                         onClick={this.delEntry.bind(this, i)}
             >
-                <ContentRemove/>
+                <Delete/>
             </Button>
         )
     }
