@@ -28,21 +28,23 @@
 }
 
 .or-modify-amount {
-    border-width: 10px !important;
+    padding: 0 !important;
+    border-width: 2px !important;
     margin-top: 5px !important;
-    margin-bottom: 5px !important;
-    margin-left: 3px !important;
-    min-width: 30px !important;
-    width: 50% !important;
+    margin-bottom: 0 !important;
+    margin-left: 1px !important;
+    min-width: 20px !important;
+    width: 100% !important;
 }
 
 .or-modify-number {
-    border-width: 10px !important;
-    margin-top: 5px !important;
+    padding: 0 !important;
+    border-width: 2px !important;
+    margin-top: 0 !important;
     margin-bottom: 5px !important;
-    margin-left: 3px !important;
-    min-width: 30px !important;
-    width: 50% !important;
+    margin-left: 1px !important;
+    min-width: 20px !important;
+    width: 100% !important;
 }
 
 .total-line {
@@ -59,14 +61,12 @@
 }
 
 .or-amount-column {
-    padding-left: 0 !important;
-    padding-right: 5px !important;
+    padding: 0 !important;
     text-align: right !important;
 }
 
 .or-number-colomn {
-    padding-left: 5px !important;
-    padding-right: 0 !important;
+    padding: 0 !important;
     text-align: right !important;
 }
 
@@ -79,6 +79,7 @@
 }
 
 .or-trash-button {
+    padding: 0 !important;
     margin-top: 10px;
     margin-bottom: 10px;
     vertical-align: top !important;
