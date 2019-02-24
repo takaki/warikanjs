@@ -1,18 +1,14 @@
 import { Button, Table, TableBody, TableCell, TableRow } from "@material-ui/core";
 import { Add, Delete } from "@material-ui/icons";
 import React, { Component, Fragment } from "react";
-import DataStore from "./DataStore";
-import { EntryState } from "./model";
-import { ModifyAmount } from "./ModifyAmount";
-import { ModifyNumber } from "./ModifyNumber";
+import { EntryState } from "../model";
+import { ModifyAmount } from "../ModifyAmount";
+import { ModifyNumber } from "../ModifyNumber";
+import { IWarikanProps } from "../types";
 
-interface IAppProps {
-    dataStore: DataStore;
-    updateStore: (d: DataStore) => void;
-}
+export class Warikan extends Component<IWarikanProps> {
 
-export class RApp extends Component<IAppProps> {
-    constructor(props: IAppProps) {
+    constructor(props: any) {
         super(props);
         this.addEntry = this.addEntry.bind(this);
         // this.delEntry = this.delEntry.bind(this);
