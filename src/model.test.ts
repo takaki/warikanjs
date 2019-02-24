@@ -1,9 +1,9 @@
-import DataState from './dataState';
+import DataStore from './DataStore';
 import { EntryState } from './model';
 
-const ds = new DataState();
+const ds = new DataStore();
 
-test('init DataState', () => {
+test('init DataStore', () => {
     expect(ds.entry.size).toBe(0);
 });
 

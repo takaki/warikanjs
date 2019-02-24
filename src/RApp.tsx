@@ -1,19 +1,17 @@
 import { Button, Table, TableBody, TableCell, TableRow } from "@material-ui/core";
-import { Delete } from "@material-ui/icons";
-import ContentAdd from '@material-ui/icons/Add';
-import * as React from "react";
-import DataState from "./dataState";
+import { Add, Delete } from "@material-ui/icons";
+import React, { Component, Fragment } from "react";
+import DataStore from "./DataStore";
 import { EntryState } from "./model";
 import { ModifyAmount } from "./ModifyAmount";
 import { ModifyNumber } from "./ModifyNumber";
 
 interface IAppProps {
-    data: DataState;
-    updateModel: (d: DataState) => void;
+    dataStore: DataStore;
+    updateStore: (d: DataStore) => void;
 }
 
-
-export class RApp extends React.Component<IAppProps> {
+export class RApp extends Component<IAppProps> {
     constructor(props: IAppProps) {
         super(props);
         this.addEntry = this.addEntry.bind(this);
@@ -21,32 +19,32 @@ export class RApp extends React.Component<IAppProps> {
     }
 
     public addEntry() {
-        this.props.updateModel(this.props.data.addEntry(1000, 1))
+        this.props.updateStore(this.props.dataStore.addEntry(1000, 1));
     }
 
     public delEntry(i: number) {
-        this.props.updateModel(this.props.data.delEntry(i))
+        this.props.updateStore(this.props.dataStore.delEntry(i));
     }
 
     public updateAmount(i: number, d: number) {
-        this.props.updateModel(this.props.data.modifyAmount(i, d));
+        this.props.updateStore(this.props.dataStore.modifyAmount(i, d));
     }
 
     public updateNumber(i: number, d: number) {
-        this.props.updateModel(this.props.data.modifyNumber(i, d));
+        this.props.updateStore(this.props.dataStore.modifyNumber(i, d));
     }
 
     public render() {
         return (
             <div className="App">
                 <div className="total-line">
-                    合計: {this.props.data.total()} 円 ( {this.props.data.totalNumber()} 人)
+                    合計: {this.props.dataStore.total()} 円 ( {this.props.dataStore.totalNumber()} 人)
                 </div>
                 <Table>
                     <TableBody>
-                        {this.props.data.entry.toKeyedSeq().map((e: EntryState, i: number) => {
+                        {this.props.dataStore.entry.toKeyedSeq().map((e: EntryState, i: number) => {
                                 return (
-                                    <React.Fragment key={i}>
+                                    <Fragment key={i}>
                                         <TableRow>
                                             <TableCell className="or-amount-column">
                                                 <ModifyAmount diff={-500} modifyAmount={this.updateAmount.bind(this, i)}/>
@@ -56,7 +54,7 @@ export class RApp extends React.Component<IAppProps> {
                                             </TableCell>
                                             <TableCell className="or-amount-column">
                                                 <div className="amount-line">
-                                                    {e.get('amount')}円
+                                                    {e.get("amount")}円
                                                 </div>
                                             </TableCell>
                                             <TableCell className="or-amount-column">
@@ -78,7 +76,7 @@ export class RApp extends React.Component<IAppProps> {
                                             </TableCell>
                                             <TableCell className="or-number-colomn">
                                                 <div className="number-line">
-                                                    {e.get('number')}人
+                                                    {e.get("number")}人
                                                 </div>
                                             </TableCell>
                                             <TableCell className="or-number-colomn">
@@ -93,8 +91,8 @@ export class RApp extends React.Component<IAppProps> {
                                                 </div>
                                             </TableCell>
                                         </TableRow>
-                                    </React.Fragment>);
-                            }
+                                    </Fragment>);
+                            },
                         ).toArray()}
                     </TableBody>
                 </Table>
@@ -106,7 +104,7 @@ export class RApp extends React.Component<IAppProps> {
                         mini={true}
                         className="or-plus-button"
                     >
-                        <ContentAdd/>
+                        <Add/>
                     </Button>
                 </div>
             </div>
@@ -114,16 +112,15 @@ export class RApp extends React.Component<IAppProps> {
     }
 
     private renderDelButton(i: number) {
-        return (<Button
-                        color="primary"
-                        mini={true}
-                        className="or-trash-button"
-                        onClick={this.delEntry.bind(this, i)}
+        return (
+            <Button
+                color="primary"
+                mini={true}
+                className="or-trash-button"
+                onClick={this.delEntry.bind(this, i)}
             >
                 <Delete/>
             </Button>
-        )
+        );
     }
-
-
 }

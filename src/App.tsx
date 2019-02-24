@@ -1,42 +1,54 @@
-import {createMuiTheme,MuiThemeProvider} from "@material-ui/core/styles";
-import * as React from 'react';
-import { connect, Dispatch, Provider } from 'react-redux';
-import { createStore } from 'redux';
-import actionCreatorFactory, { AnyAction } from 'typescript-fsa';
-import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import './App.css';
-import DataState from "./dataState";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
+import React, { Component } from "react";
+import { connect, Provider } from "react-redux";
+import { createStore, Dispatch } from "redux";
+import DataStore from "./DataStore";
 import { RApp } from "./RApp";
 
-const actionCreator = actionCreatorFactory();
+const UPDATE_MODEL = "UPDATE_MODEL";
+type UPDATE_MODEL = typeof UPDATE_MODEL;
 
-const initialState = new DataState().addEntry(1000, 1);
-
-const updateModel = actionCreator<DataState>('UPDATE_MODEL');
-
-const reducer = reducerWithInitialState(initialState)
-    .caseWithAction(updateModel, (state, action) => {
-        return action.payload;
-    }).build();
-
-const store = createStore(reducer);
-
-function mapStateToProps(state: DataState) {
-    return {data: state};
+interface IUpdateModel {
+    type: UPDATE_MODEL;
+    dataStore: DataStore;
 }
 
-function mapDispatchToProps(dispatch: Dispatch<AnyAction>) {
+type ModelAction = IUpdateModel;
+
+function updateModel(dataStore: DataStore): IUpdateModel {
     return {
-        updateModel(m: DataState) {
-            dispatch(updateModel(m));
-        }
+        type: UPDATE_MODEL,
+        dataStore,
     };
-
 }
 
-class App extends React.Component<{}, {}> {
+function modelReducer(dataStore: DataStore, action: ModelAction): DataStore {
+    switch (action.type) {
+        case UPDATE_MODEL:
+            return action.dataStore;
+        default:
+            return dataStore;
+    }
+}
+
+function mapStateToProps(state: DataStore) {
+    return {dataStore: state};
+}
+
+function mapDispatchToProps(dispatch: Dispatch<ModelAction>) {
+    return {
+        updateStore: (dataStore: DataStore) => dispatch(updateModel(dataStore)),
+    };
+}
+
+// @ts-ignore
+const DApp = connect(mapStateToProps, mapDispatchToProps)(RApp);
+
+// @ts-ignore
+const store = createStore<DataStore>(modelReducer, new DataStore().addEntry(1000, 1));
+
+export default class App extends Component {
     public render() {
-        const DApp  = connect(mapStateToProps, mapDispatchToProps)(RApp);
         return (
             <MuiThemeProvider theme={createMuiTheme()}>
                 <Provider store={store}>
@@ -46,5 +58,3 @@ class App extends React.Component<{}, {}> {
         );
     }
 }
-
-export default App;
