@@ -12,19 +12,19 @@ const defaultDataStore: IDataStore = {
 export class DataStore extends Record(defaultDataStore) implements IDataStore {
 
     public addEntry(amount: number, num: number) {
-        return new DataStore(this.set("entry", this.entry.push(new EntryState({amount, number: num}))));
+        return this.set("entry", this.entry.push(new EntryState({amount, number: num})));
     }
 
     public delEntry(index: number) {
-        return new DataStore(this.set("entry", this.entry.delete(index)));
+        return this.set("entry", this.entry.delete(index));
     }
 
     public modifyAmount(index: number, diff: number) {
-        return new DataStore(this.set("entry", this.entry.update(index, (x) => x.modifyAmount(diff))));
+        return this.set("entry", this.entry.update(index, (x) => x.modifyAmount(diff)));
     }
 
     public modifyNumber(index: number, diff: number) {
-        return new DataStore(this.set("entry", this.entry.update(index, (x) => x.modifyNumber(diff))));
+        return this.set("entry", this.entry.update(index, (x) => x.modifyNumber(diff)));
     }
 
     public total() {

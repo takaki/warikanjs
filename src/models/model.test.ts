@@ -1,47 +1,47 @@
-import DataStore from './models/DataStore';
-import { EntryState } from './model';
+import { DataStore } from "./models/DataStore";
+import { EntryState } from "./models/EntryState";
 
 const ds = new DataStore();
 
-test('init DataStore', () => {
+test("init DataStore", () => {
     expect(ds.entry.size).toBe(0);
 });
 
-test('addEntry', () => {
+test("addEntry", () => {
     const added = ds.addEntry(1000, 1);
     expect(added.entry.size).toBe(1);
-    expect(added.entry.get(0).amount).toBe(1000);
-    expect(added.entry.get(0).number).toBe(1);
+    expect(added.entry.get(0)!.amount).toBe(1000);
+    expect(added.entry.get(0)!.number).toBe(1);
 });
 
-test('delEntry', () => {
+test("delEntry", () => {
     const added = ds.addEntry(1000, 1).addEntry(2000, 2).addEntry(3000, 3).delEntry(1);
     expect(added.entry.size).toBe(2);
-    expect(added.entry.get(1).amount).toBe(3000);
-    expect(added.entry.get(1).number).toBe(3);
+    expect(added.entry.get(1)!.amount).toBe(3000);
+    expect(added.entry.get(1)!.number).toBe(3);
 });
 
-test('modify', () => {
+test("modify", () => {
     const added = ds.addEntry(1000, 1).addEntry(2000, 2).modifyAmount(0, 100).modifyNumber(1, 10);
-    expect(added.entry.get(0).amount).toBe(1100);
-    expect(added.entry.get(0).number).toBe(1);
-    expect(added.entry.get(1).amount).toBe(2000);
-    expect(added.entry.get(1).number).toBe(12);
+    expect(added.entry.get(0)!.amount).toBe(1100);
+    expect(added.entry.get(0)!.number).toBe(1);
+    expect(added.entry.get(1)!.amount).toBe(2000);
+    expect(added.entry.get(1)!.number).toBe(12);
 });
 
-test('total', () => {
+test("total", () => {
     const added = ds.addEntry(1000, 1).addEntry(2000, 2).addEntry(3000, 3);
     expect(added.total()).toBe(14000);
 });
 
 const es = new EntryState({amount: 1000, number: 10});
 
-test('new EntryState', () => {
+test("new EntryState", () => {
     expect(es.amount).toBe(1000);
     expect(es.number).toBe(10);
 });
 
-test('diff', () => {
+test("diff", () => {
     expect(es.modifyAmount(100).amount).toBe(1100);
     expect(es.modifyAmount(-100).amount).toBe(900);
     expect(es.modifyAmount(-1100).amount).toBe(0);

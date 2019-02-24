@@ -1,6 +1,6 @@
 import { Button } from "@material-ui/core";
 import { ChevronLeft, ChevronRight } from "@material-ui/icons";
-import * as React from "react";
+import React from "react";
 
 interface IModifierNumberProps {
     diff: number;
@@ -8,12 +8,7 @@ interface IModifierNumberProps {
 }
 
 export class ModifyNumber extends React.Component<IModifierNumberProps> {
-    constructor(props: IModifierNumberProps) {
-        super(props);
-        this.update = this.update.bind(this);
-    }
-
-    public update() {
+    public update = () => {
         this.props.modifyNumber(this.props.diff);
     }
 

@@ -2,8 +2,8 @@ import { Button, Table, TableBody, TableCell, TableRow } from "@material-ui/core
 import { Add, Delete } from "@material-ui/icons";
 import React, { Component, Fragment } from "react";
 import { EntryState } from "../model";
-import { ModifyAmount } from "../models/ModifyAmount";
-import { ModifyNumber } from "../models/ModifyNumber";
+import { ModifyAmount } from "./ModifyAmount";
+import { ModifyNumber } from "./ModifyNumber";
 import { IWarikanProps } from "../types";
 
 export class Warikan extends Component<IWarikanProps> {
