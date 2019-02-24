@@ -1,10 +1,10 @@
 import { Button, Table, TableBody, TableCell, TableRow } from "@material-ui/core";
 import { Add, Delete } from "@material-ui/icons";
 import React, { Component, Fragment } from "react";
-import { EntryState } from "../model";
+import { EntryState } from "../models/EntryState";
+import { IWarikanProps } from "../types";
 import { ModifyAmount } from "./ModifyAmount";
 import { ModifyNumber } from "./ModifyNumber";
-import { IWarikanProps } from "../types";
 
 export class Warikan extends Component<IWarikanProps> {
 
@@ -38,7 +38,7 @@ export class Warikan extends Component<IWarikanProps> {
                 </div>
                 <Table>
                     <TableBody>
-                        {this.props.dataStore.entry.toKeyedSeq().map((e: EntryState, i: number) => {
+                        {this.props.dataStore.entry.map((e: EntryState, i: number) => {
                                 return (
                                     <Fragment key={i}>
                                         <TableRow>
@@ -88,8 +88,8 @@ export class Warikan extends Component<IWarikanProps> {
                                             </TableCell>
                                         </TableRow>
                                     </Fragment>);
-                            },
-                        ).toArray()}
+                            }
+                        )}
                     </TableBody>
                 </Table>
                 <div>

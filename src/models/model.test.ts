@@ -1,5 +1,5 @@
-import { DataStore } from "./models/DataStore";
-import { EntryState } from "./models/EntryState";
+import { DataStore } from "./DataStore";
+import { EntryState } from "./EntryState";
 
 const ds = new DataStore();
 

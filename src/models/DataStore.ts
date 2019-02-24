@@ -1,5 +1,5 @@
 import { List, Record } from "immutable";
-import { EntryState } from "../model";
+import { EntryState } from "./EntryState";
 
 interface IDataStore {
     entry: List<EntryState>;
