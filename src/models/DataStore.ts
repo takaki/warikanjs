@@ -1,15 +1,15 @@
 import { List, Record } from "immutable";
-import { EntryState } from "./model";
+import { EntryState } from "../model";
 
 interface IDataStore {
     entry: List<EntryState>;
 }
 
-const defaultDataState: IDataStore = {
+const defaultDataStore: IDataStore = {
     entry: List<EntryState>(),
 };
 
-class DataStore extends Record(defaultDataState) implements IDataStore {
+export class DataStore extends Record(defaultDataStore) implements IDataStore {
 
     public addEntry(amount: number, num: number) {
         return new DataStore(this.set("entry", this.entry.push(new EntryState({amount, number: num}))));
@@ -37,4 +37,3 @@ class DataStore extends Record(defaultDataState) implements IDataStore {
 
 }
 
-export default DataStore;

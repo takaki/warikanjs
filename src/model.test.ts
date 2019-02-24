@@ -1,4 +1,4 @@
-import DataStore from './DataStore';
+import DataStore from './models/DataStore';
 import { EntryState } from './model';
 
 const ds = new DataStore();

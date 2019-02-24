@@ -2,13 +2,13 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { ModelAction, updateModel } from "../actions";
 import { Warikan } from "../components/Warikan";
-import DataStore from "../DataStore";
+import { DataStore } from "../models/DataStore";
 
-function mapStateToProps(state: DataStore) {
-    return {dataStore: state};
+export function mapStateToProps(dataStore: DataStore) {
+    return {dataStore};
 }
 
-function mapDispatchToProps(dispatch: Dispatch<ModelAction>) {
+export function mapDispatchToProps(dispatch: Dispatch<ModelAction>) {
     return {
         updateStore: (dataStore: DataStore) => dispatch(updateModel(dataStore)),
     };

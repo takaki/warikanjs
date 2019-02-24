@@ -1,5 +1,5 @@
 import { UPDATE_MODEL } from "./constants";
-import DataStore from "./DataStore";
+import { DataStore } from "./models/DataStore";
 
 interface IUpdateModel {
     type: UPDATE_MODEL;
