@@ -10,12 +10,6 @@ export class Warikan extends Component<IWarikanProps> {
 
     constructor(props: any) {
         super(props);
-        this.addEntry = this.addEntry.bind(this);
-        // this.delEntry = this.delEntry.bind(this);
-    }
-
-    public addEntry() {
-        this.props.updateStore(this.props.dataStore.addEntry(1000, 1));
     }
 
     public delEntry(i: number) {
@@ -112,7 +106,7 @@ export class Warikan extends Component<IWarikanProps> {
                 color="primary"
                 mini={true}
                 className="or-trash-button"
-                onClick={this.delEntry.bind(this, i)}
+                onClick={this.props.delEntry.bind(this, i)}
             >
                 <Delete/>
             </Button>
