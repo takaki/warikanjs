@@ -1,4 +1,4 @@
-import { Button, Table, TableBody, TableCell, TableRow } from "@material-ui/core";
+import { Button, Fab, Table, TableBody, TableCell, TableRow } from "@material-ui/core";
 import { Add, Delete } from "@material-ui/icons";
 import React, { Component, Fragment } from "react";
 import { EntryState } from "../models/EntryState";
@@ -93,15 +93,14 @@ export class Warikan extends Component<IWarikanProps> {
                     </TableBody>
                 </Table>
                 <div>
-                    <Button
-                        variant="fab"
+                    <Fab
                         color="secondary"
                         onClick={this.props.addEntry.bind(this.props.dataStore)}
-                        mini={true}
                         className="or-plus-button"
+                        size="small"
                     >
                         <Add/>
-                    </Button>
+                    </Fab>
                 </div>
             </div>
         );

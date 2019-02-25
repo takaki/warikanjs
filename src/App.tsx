@@ -2,6 +2,7 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import React, { Component } from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
+import "./App.css";
 import WarikanApp from "./containers/WarikanApp";
 import { DataStore } from "./models/DataStore";
 import { modelReducer } from "./reducers";
