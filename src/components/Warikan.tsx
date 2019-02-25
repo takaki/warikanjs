@@ -96,7 +96,7 @@ export class Warikan extends Component<IWarikanProps> {
                     <Button
                         variant="fab"
                         color="secondary"
-                        onClick={this.addEntry}
+                        onClick={this.props.addEntry.bind(this.props.dataStore)}
                         mini={true}
                         className="or-plus-button"
                     >
