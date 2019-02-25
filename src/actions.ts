@@ -1,10 +1,4 @@
-import { ADD_ENTRY, DEL_ENTRY, UPDATE_AMOUNT, UPDATE_MODEL, UPDATE_NUMBER } from "./constants";
-import { DataStore } from "./models/DataStore";
-
-interface IUpdateModel {
-    type: UPDATE_MODEL;
-    dataStore: DataStore;
-}
+import { ADD_ENTRY, DEL_ENTRY, UPDATE_AMOUNT, UPDATE_NUMBER } from "./constants";
 
 interface IAddEntry {
     type: ADD_ENTRY;
@@ -33,14 +27,7 @@ interface IUpdateNumber {
     };
 }
 
-export type ModelAction = IUpdateModel | IAddEntry | IDelEntry | IUpdateAmount | IUpdateNumber;
-
-export function updateModel(dataStore: DataStore): IUpdateModel {
-    return {
-        type: UPDATE_MODEL,
-        dataStore,
-    };
-}
+export type ModelAction = IAddEntry | IDelEntry | IUpdateAmount | IUpdateNumber;
 
 export function addEntry(): IAddEntry {
     return {

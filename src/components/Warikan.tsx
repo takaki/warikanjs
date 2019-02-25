@@ -1,5 +1,5 @@
-import { Button, Fab, Table, TableBody, TableCell, TableRow } from "@material-ui/core";
-import { Add, Delete } from "@material-ui/icons";
+import { Fab, Table, TableBody, TableCell, TableRow } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
 import React, { Component, Fragment } from "react";
 import { EntryState } from "../models/EntryState";
 import { IWarikanProps } from "../types";
@@ -14,32 +14,7 @@ export class Warikan extends Component<IWarikanProps> {
     }
 
     public render() {
-        return (
-            <div className="App">
-                <div className="total-line">
-                    合計: {this.props.dataStore.total()} 円 ( {this.props.dataStore.totalNumber()} 人)
-                </div>
-                <Table>
-                    <TableBody>
-                        {this.tableBody()}
-                    </TableBody>
-                </Table>
-                <div>
-                    <Fab
-                        color="secondary"
-                        onClick={this.props.addEntry}
-                        className="or-plus-button"
-                        size="small"
-                    >
-                        <Add/>
-                    </Fab>
-                </div>
-            </div>
-        );
-    }
-
-    private tableBody() {
-        return this.props.dataStore.entry.map((e: EntryState, i: number) => {
+        const tableBody = this.props.dataStore.entry.map((e: EntryState, i: number) => {
                 return (
                     <Fragment key={i}>
                         <TableRow>
@@ -123,5 +98,29 @@ export class Warikan extends Component<IWarikanProps> {
                     </Fragment>);
             },
         );
+
+        return (
+            <div className="App">
+                <div className="total-line">
+                    合計: {this.props.dataStore.total()} 円 ( {this.props.dataStore.totalNumber()} 人)
+                </div>
+                <Table>
+                    <TableBody>
+                        {tableBody}
+                    </TableBody>
+                </Table>
+                <div>
+                    <Fab
+                        color="secondary"
+                        onClick={this.props.addEntry}
+                        className="or-plus-button"
+                        size="small"
+                    >
+                        <Add/>
+                    </Fab>
+                </div>
+            </div>
+        );
     }
+
 }
