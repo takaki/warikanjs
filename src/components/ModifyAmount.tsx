@@ -8,18 +8,16 @@ interface IModifierAmountProps {
     modifyAmount: (i: number, d: number) => void;
 }
 
-export class ModifyAmount extends React.Component<IModifierAmountProps> {
-    public update = () => {
-        this.props.modifyAmount(this.props.index, this.props.diff);
-    }
+export function ModifyAmount(props: IModifierAmountProps) {
+    const update = () => {
+        props.modifyAmount(props.index, props.diff);
+    };
 
-    public render() {
-        const icon = this.props.diff > 0 ?
-            (this.props.diff === 100 ? <ChevronRight/> : <><ChevronRight/><ChevronRight/></>) :
-            (this.props.diff === -100 ? <ChevronLeft/> : <><ChevronLeft/><ChevronLeft/></>);
-        return (
-            <Button variant="outlined" disableRipple={true} className="or-modify-amount" onClick={this.update}>
-                {icon}
-            </Button>);
-    }
+    const icon = props.diff > 0 ?
+        (props.diff === 100 ? <ChevronRight/> : <><ChevronRight/><ChevronRight/></>) :
+        (props.diff === -100 ? <ChevronLeft/> : <><ChevronLeft/><ChevronLeft/></>);
+    return (
+        <Button variant="outlined" disableRipple={true} className="or-modify-amount" onClick={update}>
+            {icon}
+        </Button>);
 }

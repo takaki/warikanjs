@@ -17,5 +17,4 @@ export function mapDispatchToProps(dispatch: Dispatch<ModelAction>) {
     };
 }
 
-// @ts-ignore
 export default connect(mapStateToProps, mapDispatchToProps)(Warikan);
