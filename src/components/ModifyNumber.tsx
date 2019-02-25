@@ -3,13 +3,14 @@ import { ChevronLeft, ChevronRight } from "@material-ui/icons";
 import React from "react";
 
 interface IModifierNumberProps {
+    index: number;
     diff: number;
-    modifyNumber: (d: number) => void;
+    modifyNumber: (i: number, d: number) => void;
 }
 
 export class ModifyNumber extends React.Component<IModifierNumberProps> {
     public update = () => {
-        this.props.modifyNumber(this.props.diff);
+        this.props.modifyNumber(this.props.index, this.props.diff);
     }
 
     public render() {

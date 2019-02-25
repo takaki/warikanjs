@@ -13,10 +13,6 @@ export class Warikan extends Component<IWarikanProps> {
         super(props);
     }
 
-    public updateNumber(i: number, d: number) {
-        this.props.updateStore(this.props.dataStore.modifyNumber(i, d));
-    }
-
     public render() {
         return (
             <div className="App">
@@ -25,58 +21,7 @@ export class Warikan extends Component<IWarikanProps> {
                 </div>
                 <Table>
                     <TableBody>
-                        {this.props.dataStore.entry.map((e: EntryState, i: number) => {
-                                return (
-                                    <Fragment key={i}>
-                                        <TableRow>
-                                            <TableCell className="or-amount-column">
-                                                <ModifyAmount index={i} diff={-500} modifyAmount={this.props.updateAmount}/>
-                                            </TableCell>
-                                            <TableCell className="or-amount-column">
-                                                <ModifyAmount index={i} diff={-100} modifyAmount={this.props.updateAmount}/>
-                                            </TableCell>
-                                            <TableCell className="or-amount-column">
-                                                <div className="amount-line">
-                                                    {e.get("amount")}円
-                                                </div>
-                                            </TableCell>
-                                            <TableCell className="or-amount-column">
-                                                <ModifyAmount index={i} diff={100} modifyAmount={this.props.updateAmount}/>
-                                            </TableCell>
-                                            <TableCell className="or-amount-column">
-                                                <ModifyAmount index={i} diff={500} modifyAmount={this.props.updateAmount}/>
-                                            </TableCell>
-                                            <TableCell className="or-subtotal-column">
-                                                <DelButton index={i} onClick={this.props.delEntry}/>
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell className="or-number-colomn">
-                                                <ModifyNumber diff={-5} modifyNumber={this.updateNumber.bind(this, i)}/>
-                                            </TableCell>
-                                            <TableCell className="or-number-colomn">
-                                                <ModifyNumber diff={-1} modifyNumber={this.updateNumber.bind(this, i)}/>
-                                            </TableCell>
-                                            <TableCell className="or-number-colomn">
-                                                <div className="number-line">
-                                                    {e.get("number")}人
-                                                </div>
-                                            </TableCell>
-                                            <TableCell className="or-number-colomn">
-                                                <ModifyNumber diff={1} modifyNumber={this.updateNumber.bind(this, i)}/>
-                                            </TableCell>
-                                            <TableCell className="or-number-colomn">
-                                                <ModifyNumber diff={5} modifyNumber={this.updateNumber.bind(this, i)}/>
-                                            </TableCell>
-                                            <TableCell className="or-subtotal-column">
-                                                <div className="subtotal-box">
-                                                    <span className="subtotal-line">{e.total()} 円</span>
-                                                </div>
-                                            </TableCell>
-                                        </TableRow>
-                                    </Fragment>);
-                            }
-                        )}
+                        {this.tableBody()}
                     </TableBody>
                 </Table>
                 <div>
@@ -93,16 +38,90 @@ export class Warikan extends Component<IWarikanProps> {
         );
     }
 
-    private renderDelButton(i: number) {
-        return (
-            <Button
-                color="primary"
-                mini={true}
-                className="or-trash-button"
-                onClick={this.props.delEntry.bind(this, i)}
-            >
-                <Delete/>
-            </Button>
+    private tableBody() {
+        return this.props.dataStore.entry.map((e: EntryState, i: number) => {
+                return (
+                    <Fragment key={i}>
+                        <TableRow>
+                            <TableCell className="or-amount-column">
+                                <ModifyAmount
+                                    index={i}
+                                    diff={-500}
+                                    modifyAmount={this.props.updateAmount}
+                                />
+                            </TableCell>
+                            <TableCell className="or-amount-column">
+                                <ModifyAmount
+                                    index={i}
+                                    diff={-100}
+                                    modifyAmount={this.props.updateAmount}
+                                />
+                            </TableCell>
+                            <TableCell className="or-amount-column">
+                                <div className="amount-line">
+                                    {e.get("amount")}円
+                                </div>
+                            </TableCell>
+                            <TableCell className="or-amount-column">
+                                <ModifyAmount
+                                    index={i}
+                                    diff={100}
+                                    modifyAmount={this.props.updateAmount}
+                                />
+                            </TableCell>
+                            <TableCell className="or-amount-column">
+                                <ModifyAmount
+                                    index={i}
+                                    diff={500}
+                                    modifyAmount={this.props.updateAmount}
+                                />
+                            </TableCell>
+                            <TableCell className="or-subtotal-column">
+                                <DelButton index={i} onClick={this.props.delEntry}/>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell className="or-number-colomn">
+                                <ModifyNumber
+                                    index={i}
+                                    diff={-5}
+                                    modifyNumber={this.props.updateNumber}
+                                />
+                            </TableCell>
+                            <TableCell className="or-number-colomn">
+                                <ModifyNumber
+                                    index={i}
+                                    diff={-1}
+                                    modifyNumber={this.props.updateNumber}
+                                />
+                            </TableCell>
+                            <TableCell className="or-number-colomn">
+                                <div className="number-line">
+                                    {e.get("number")}人
+                                </div>
+                            </TableCell>
+                            <TableCell className="or-number-colomn">
+                                <ModifyNumber
+                                    index={i}
+                                    diff={1}
+                                    modifyNumber={this.props.updateNumber}
+                                />
+                            </TableCell>
+                            <TableCell className="or-number-colomn">
+                                <ModifyNumber
+                                    index={i}
+                                    diff={5}
+                                    modifyNumber={this.props.updateNumber}
+                                />
+                            </TableCell>
+                            <TableCell className="or-subtotal-column">
+                                <div className="subtotal-box">
+                                    <span className="subtotal-line">{e.total()} 円</span>
+                                </div>
+                            </TableCell>
+                        </TableRow>
+                    </Fragment>);
+            },
         );
     }
 }
