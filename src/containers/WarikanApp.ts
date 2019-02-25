@@ -11,7 +11,7 @@ export function mapStateToProps(dataStore: DataStore) {
 export function mapDispatchToProps(dispatch: Dispatch<ModelAction>) {
     return {
         updateStore: (dataStore: DataStore) => dispatch(updateModel(dataStore)),
-        addEntry: (dataStore: DataStore) => dispatch(addEntry(dataStore)),
+        addEntry: () => dispatch(addEntry()),
     };
 }
 

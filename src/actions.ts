@@ -8,8 +8,8 @@ interface IUpdateModel {
 
 interface IAddEntry {
     type: ADD_ENTRY;
-    dataStore: DataStore;
 }
+
 export type ModelAction = IUpdateModel | IAddEntry;
 
 export function updateModel(dataStore: DataStore): IUpdateModel {
@@ -19,9 +19,8 @@ export function updateModel(dataStore: DataStore): IUpdateModel {
     };
 }
 
-export function addEntry(dataStore: DataStore): IAddEntry {
+export function addEntry(): IAddEntry {
     return {
         type: ADD_ENTRY,
-        dataStore,
     };
 }
