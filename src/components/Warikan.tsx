@@ -3,6 +3,7 @@ import { Add, Delete } from "@material-ui/icons";
 import React, { Component, Fragment } from "react";
 import { EntryState } from "../models/EntryState";
 import { IWarikanProps } from "../types";
+import { DelButton } from "./DelButton";
 import { ModifyAmount } from "./ModifyAmount";
 import { ModifyNumber } from "./ModifyNumber";
 
@@ -10,14 +11,6 @@ export class Warikan extends Component<IWarikanProps> {
 
     constructor(props: any) {
         super(props);
-    }
-
-    public delEntry(i: number) {
-        this.props.updateStore(this.props.dataStore.delEntry(i));
-    }
-
-    public updateAmount(i: number, d: number) {
-        this.props.updateStore(this.props.dataStore.modifyAmount(i, d));
     }
 
     public updateNumber(i: number, d: number) {
@@ -37,10 +30,10 @@ export class Warikan extends Component<IWarikanProps> {
                                     <Fragment key={i}>
                                         <TableRow>
                                             <TableCell className="or-amount-column">
-                                                <ModifyAmount diff={-500} modifyAmount={this.updateAmount.bind(this, i)}/>
+                                                <ModifyAmount index={i} diff={-500} modifyAmount={this.props.updateAmount}/>
                                             </TableCell>
                                             <TableCell className="or-amount-column">
-                                                <ModifyAmount diff={-100} modifyAmount={this.updateAmount.bind(this, i)}/>
+                                                <ModifyAmount index={i} diff={-100} modifyAmount={this.props.updateAmount}/>
                                             </TableCell>
                                             <TableCell className="or-amount-column">
                                                 <div className="amount-line">
@@ -48,13 +41,13 @@ export class Warikan extends Component<IWarikanProps> {
                                                 </div>
                                             </TableCell>
                                             <TableCell className="or-amount-column">
-                                                <ModifyAmount diff={100} modifyAmount={this.updateAmount.bind(this, i)}/>
+                                                <ModifyAmount index={i} diff={100} modifyAmount={this.props.updateAmount}/>
                                             </TableCell>
                                             <TableCell className="or-amount-column">
-                                                <ModifyAmount diff={500} modifyAmount={this.updateAmount.bind(this, i)}/>
+                                                <ModifyAmount index={i} diff={500} modifyAmount={this.props.updateAmount}/>
                                             </TableCell>
                                             <TableCell className="or-subtotal-column">
-                                                {this.renderDelButton(i)}
+                                                <DelButton index={i} onClick={this.props.delEntry}/>
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>

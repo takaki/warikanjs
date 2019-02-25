@@ -3,13 +3,14 @@ import { ChevronLeft, ChevronRight } from "@material-ui/icons";
 import React from "react";
 
 interface IModifierAmountProps {
+    index: number;
     diff: number;
-    modifyAmount: (d: number) => void;
+    modifyAmount: (i: number, d: number) => void;
 }
 
 export class ModifyAmount extends React.Component<IModifierAmountProps> {
     public update = () => {
-        this.props.modifyAmount(this.props.diff);
+        this.props.modifyAmount(this.props.index, this.props.diff);
     }
 
     public render() {

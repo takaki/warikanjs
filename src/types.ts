@@ -5,4 +5,6 @@ export interface IWarikanProps {
     updateStore: (d: DataStore) => void;
     addEntry: () => void;
     delEntry: (i: number) => void;
+    updateAmount: (i: number, d: number) => void;
+    updateNumber: (i: number, d: number) => void;
 }
