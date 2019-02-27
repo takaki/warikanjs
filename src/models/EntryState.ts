@@ -16,11 +16,11 @@ export class EntryState extends Record(defaultEntryState) implements IEntryState
     }
 
     public modifyAmount(diff: number) {
-        return new EntryState(this.set("amount", EntryState.modify(this.amount, diff)));
+        return this.set("amount", EntryState.modify(this.amount, diff));
     }
 
     public modifyNumber(diff: number) {
-        return new EntryState(this.set("number", EntryState.modify(this.number, diff)));
+        return this.set("number", EntryState.modify(this.number, diff));
     }
 
     public total() {

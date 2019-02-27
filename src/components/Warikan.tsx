@@ -1,6 +1,6 @@
-import { Fab, Table, TableBody, TableCell, TableRow } from "@material-ui/core";
+import { Fab, Paper, Table, TableBody, TableCell, TableRow } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import { EntryState } from "../models/EntryState";
 import { IWarikanProps } from "../types";
 import { DelButton } from "./DelButton";
@@ -26,10 +26,15 @@ export function Warikan(props: IWarikanProps) {
                                 modifyAmount={props.updateAmount}
                             />
                         </TableCell>
-                        <TableCell className="or-amount-column">
-                            <div className="amount-line">
-                                {e.get("amount")}円
-                            </div>
+                        <TableCell className="or-amount-column" rowSpan={2}>
+                            <Paper>
+                                <div className="amount-line">
+                                    {e.get("amount")}円
+                                </div>
+                                <div className="number-line">
+                                    {e.get("number")}人
+                                </div>
+                            </Paper>
                         </TableCell>
                         <TableCell className="or-amount-column">
                             <ModifyAmount
@@ -63,11 +68,6 @@ export function Warikan(props: IWarikanProps) {
                                 diff={-1}
                                 modifyNumber={props.updateNumber}
                             />
-                        </TableCell>
-                        <TableCell className="or-number-colomn">
-                            <div className="number-line">
-                                {e.get("number")}人
-                            </div>
                         </TableCell>
                         <TableCell className="or-number-colomn">
                             <ModifyNumber
