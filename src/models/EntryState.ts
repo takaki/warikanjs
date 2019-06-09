@@ -1,30 +1,30 @@
-import { Record } from "immutable";
+import { Lens } from "monocle-ts";
 
-interface IEntryState {
-    amount: number;
-    number: number;
+export interface IEntryState {
+  amount: number;
+  num: number;
 }
 
 const defaultEntryState: IEntryState = {
-    amount: 0,
-    number: 0,
+  amount: 0,
+  num: 0,
 };
 
-export class EntryState extends Record(defaultEntryState) implements IEntryState {
-    public static modify(x: number, d: number) {
-        return Math.max(x + d, 0);
-    }
+const amount = Lens.fromProp<IEntryState>()("amount");
+const num = Lens.fromProp<IEntryState>()("num");
 
-    public modifyAmount(diff: number) {
-        return this.set("amount", EntryState.modify(this.amount, diff));
-    }
+function modify(x: number, d: number) {
+  return Math.max(x + d, 0);
+}
 
-    public modifyNumber(diff: number) {
-        return this.set("number", EntryState.modify(this.number, diff));
-    }
+export function modifyAmount(self: IEntryState, diff: number) {
+  return amount.modify((a) => modify(a, diff))(self);
+}
 
-    public total() {
-        return this.amount * this.number;
-    }
+export function modifyNumber(self: IEntryState, diff: number) {
+  return num.modify((a) => modify(a, diff))(self);
+}
 
+export function total(self: IEntryState) {
+  return self.amount * self.num;
 }

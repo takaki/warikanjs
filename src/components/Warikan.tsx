@@ -1,14 +1,14 @@
 import { Fab, Paper, Table, TableBody, TableCell, TableRow } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import React, { Fragment } from "react";
-import { EntryState } from "../models/EntryState";
+import { IEntryState, total } from "../models/EntryState";
 import { IWarikanProps } from "../types";
 import { DelButton } from "./DelButton";
 import { ModifyAmount } from "./ModifyAmount";
 import { ModifyNumber } from "./ModifyNumber";
 
 export function Warikan(props: IWarikanProps) {
-    const tableBody = props.dataStore.entry.map((e: EntryState, i: number) => {
+    const tableBody = props.dataStore.entry.map((e: IEntryState, i: number) => {
             return (
                 <Fragment key={i}>
                     <TableRow>
@@ -29,10 +29,10 @@ export function Warikan(props: IWarikanProps) {
                         <TableCell className="or-amount-column" rowSpan={2}>
                             <Paper>
                                 <div className="amount-line">
-                                    {e.get("amount")}円
+                                    {e.amount}円
                                 </div>
                                 <div className="number-line">
-                                    {e.get("number")}人
+                                    {e.num}人
                                 </div>
                             </Paper>
                         </TableCell>
@@ -85,18 +85,20 @@ export function Warikan(props: IWarikanProps) {
                         </TableCell>
                         <TableCell className="or-subtotal-column">
                             <div className="subtotal-box">
-                                <span className="subtotal-line">{e.total()} 円</span>
+                                <span className="subtotal-line">{total(e)} 円</span>
                             </div>
                         </TableCell>
                     </TableRow>
-                </Fragment>);
+                </Fragment>
+            );
         },
     );
 
     return (
         <div className="App">
             <div className="total-line">
-                合計: <span id="total">{props.dataStore.total()}</span>円 円 ( <span id="total-number">{props.dataStore.totalNumber()}</span> 人)
+                合計: <span id="total">{props.dataStore.total()}</span>円 円
+                ( <span id="total-number">{props.dataStore.totalNumber()}</span> 人)
             </div>
             <Table>
                 <TableBody>
