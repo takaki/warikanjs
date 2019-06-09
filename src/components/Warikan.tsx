@@ -96,7 +96,7 @@ export function Warikan(props: IWarikanProps) {
     return (
         <div className="App">
             <div className="total-line">
-                合計: {props.dataStore.total()} 円 ( {props.dataStore.totalNumber()} 人)
+                合計: <span id="total">{props.dataStore.total()}</span>円 円 ( <span id="total-number">{props.dataStore.totalNumber()}</span> 人)
             </div>
             <Table>
                 <TableBody>

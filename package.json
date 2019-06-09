@@ -4,24 +4,26 @@
   "private": true,
   "homepage": "https://takaki.github.io/warikanjs/",
   "dependencies": {
-    "@material-ui/core": "^3.9.2",
-    "@material-ui/icons": "^3.0.2",
-    "@types/jest": "24.0.6",
-    "@types/node": "11.9.5",
-    "@types/react": "16.8.4",
-    "@types/react-dom": "16.8.2",
-    "@types/react-redux": "^7.0.1",
+    "@material-ui/core": "^4.0.2",
+    "@material-ui/icons": "^4.0.1",
+    "@types/jest": "24.0.13",
+    "@types/node": "12.0.7",
+    "@types/react": "16.8.19",
+    "@types/react-dom": "16.8.4",
+    "@types/react-redux": "^7.0.9",
     "@types/redux": "^3.6.0",
-    "@types/redux-actions": "^2.3.2",
+    "@types/redux-actions": "^2.6.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "gh-pages": "^2.0.1",
     "immutable": "^4.0.0-rc.12",
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
-    "react-redux": "^6.0.1",
-    "react-scripts": "2.1.5",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.0.3",
+    "react-scripts": "3.0.1",
     "redux": "^4.0.1",
-    "redux-actions": "^2.0.2",
-    "typescript": "3.3.3333"
+    "redux-actions": "^2.6.5",
+    "typescript": "3.5.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,5 +41,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@types/enzyme": "^3.9.3",
+    "@types/enzyme-adapter-react-16": "^1.0.5"
+  }
 }
