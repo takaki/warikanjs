@@ -9,7 +9,7 @@ import { ModifyAmount } from './ModifyAmount';
 import { ModifyNumber } from './ModifyNumber';
 
 export const Warikan = (props: IWarikanProps) => {
-  const tableBody = props.dataStore.entry.map(
+  const tableBody = props.dataStore.entries.map(
     (e: E.IEntryState, i: number) => {
       return (
         <React.Fragment key={i}>
