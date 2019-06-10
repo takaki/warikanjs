@@ -1,38 +1,34 @@
-import { List, Record } from "immutable";
-import { IEntryState, modifyAmount, modifyNumber, total } from "./EntryState";
+import { List } from 'immutable';
+import { Lens } from 'monocle-ts';
+import * as E from './EntryState';
 
-interface IDataStore {
-  entry: List<IEntryState>;
+export interface IDataStore {
+  entry: List<E.IEntryState>;
 }
 
-const defaultDataStore: IDataStore = {
-  entry: List<IEntryState>(),
+export const defaultDataStore: IDataStore = {
+  entry: List<E.IEntryState>(),
 };
 
-export class DataStore extends Record(defaultDataStore) implements IDataStore {
+const entry = Lens.fromProp<IDataStore>()('entry');
 
-  public addEntry(amount: number, num: number) {
-    return this.set("entry", this.entry.push({amount, num}));
-  }
+export const addEntry = (amount: number, num: number) => (self: IDataStore): IDataStore => {
+  return entry.modify(a => a.push({ amount, num }))(self);
+};
 
-  public delEntry(index: number) {
-    return this.set("entry", this.entry.delete(index));
-  }
+export const delEntry = (index: number) => (self: IDataStore): IDataStore => {
+  return entry.modify(a => a.delete(index))(self);
+};
 
-  public modifyAmount(index: number, diff: number) {
-    return this.set("entry", this.entry.update(index, (x) => modifyAmount(x, diff)));
-  }
+export const modifyAmount = (index: number, diff: number) => (self: IDataStore): IDataStore =>
+  entry.modify(a => a.update(index, E.modifyAmount(diff)))(self);
 
-  public modifyNumber(index: number, diff: number) {
-    return this.set("entry", this.entry.update(index, (x) => modifyNumber(x, diff)));
-  }
+export const modifyNumber = (index: number, diff: number) => (self: IDataStore): IDataStore =>
+  entry.modify(a => a.update(index, E.modifyNumber(diff)))(self);
 
-  public total() {
-    return this.entry.map((x: IEntryState) => total(x)).reduce((a: number, b: number) => a + b);
-  }
+export const total = (self: IDataStore): number =>
+  entry.get(self).map((x: E.IEntryState) =>
+                        E.entryTotal(x)).reduce((a: number, b: number) => a + b);
 
-  public totalNumber() {
-    return this.entry.map((x: IEntryState) => x.num).reduce((a: number, b: number) => a + b);
-  }
-
-}
+export const totalNumber = (self: IDataStore): number =>
+  entry.get(self).map((x: E.IEntryState) => x.num).reduce((a: number, b: number) => a + b);

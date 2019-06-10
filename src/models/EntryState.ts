@@ -1,4 +1,5 @@
-import { Lens } from "monocle-ts";
+import { curry } from 'fp-ts/lib/function';
+import { Lens } from 'monocle-ts';
 
 export interface IEntryState {
   amount: number;
@@ -10,21 +11,21 @@ const defaultEntryState: IEntryState = {
   num: 0,
 };
 
-const amount = Lens.fromProp<IEntryState>()("amount");
-const num = Lens.fromProp<IEntryState>()("num");
+const amount = Lens.fromProp<IEntryState>()('amount');
+const num = Lens.fromProp<IEntryState>()('num');
 
-function modify(x: number, d: number) {
+function modify(d: number, x: number): number {
   return Math.max(x + d, 0);
 }
 
-export function modifyAmount(self: IEntryState, diff: number) {
-  return amount.modify((a) => modify(a, diff))(self);
-}
+export const modifyAmount = (diff: number) => (self: IEntryState): IEntryState => {
+  return amount.modify(curry(modify)(diff))(self);
+};
 
-export function modifyNumber(self: IEntryState, diff: number) {
-  return num.modify((a) => modify(a, diff))(self);
-}
+export const modifyNumber = (diff: number) => (self: IEntryState): IEntryState => {
+  return num.modify(curry(modify)(diff))(self);
+};
 
-export function total(self: IEntryState) {
+export const entryTotal = (self: IEntryState): number => {
   return self.amount * self.num;
-}
+};
