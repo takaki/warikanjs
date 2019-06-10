@@ -1,13 +1,15 @@
 {
-  "main.css": "/warikanjs/static/css/main.1c6dcdd6.chunk.css",
-  "main.js": "/warikanjs/static/js/main.21e3e23c.chunk.js",
-  "main.js.map": "/warikanjs/static/js/main.21e3e23c.chunk.js.map",
-  "runtime~main.js": "/warikanjs/static/js/runtime~main.54efcb1e.js",
-  "runtime~main.js.map": "/warikanjs/static/js/runtime~main.54efcb1e.js.map",
-  "static/js/2.0d39fbd8.chunk.js": "/warikanjs/static/js/2.0d39fbd8.chunk.js",
-  "static/js/2.0d39fbd8.chunk.js.map": "/warikanjs/static/js/2.0d39fbd8.chunk.js.map",
-  "index.html": "/warikanjs/index.html",
-  "precache-manifest.8b42b91f3184f6b9349a841273088a9c.js": "/warikanjs/precache-manifest.8b42b91f3184f6b9349a841273088a9c.js",
-  "service-worker.js": "/warikanjs/service-worker.js",
-  "static/css/main.1c6dcdd6.chunk.css.map": "/warikanjs/static/css/main.1c6dcdd6.chunk.css.map"
+  "files": {
+    "main.css": "/warikanjs/static/css/main.4cc71b1d.chunk.css",
+    "main.js": "/warikanjs/static/js/main.f949da59.chunk.js",
+    "main.js.map": "/warikanjs/static/js/main.f949da59.chunk.js.map",
+    "runtime~main.js": "/warikanjs/static/js/runtime~main.66e15e8a.js",
+    "runtime~main.js.map": "/warikanjs/static/js/runtime~main.66e15e8a.js.map",
+    "static/js/2.326e2084.chunk.js": "/warikanjs/static/js/2.326e2084.chunk.js",
+    "static/js/2.326e2084.chunk.js.map": "/warikanjs/static/js/2.326e2084.chunk.js.map",
+    "index.html": "/warikanjs/index.html",
+    "precache-manifest.ee1ae0672734f6dc47517ff449226249.js": "/warikanjs/precache-manifest.ee1ae0672734f6dc47517ff449226249.js",
+    "service-worker.js": "/warikanjs/service-worker.js",
+    "static/css/main.4cc71b1d.chunk.css.map": "/warikanjs/static/css/main.4cc71b1d.chunk.css.map"
+  }
 }
