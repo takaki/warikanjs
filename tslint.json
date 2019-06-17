@@ -7,6 +7,7 @@
   ],
   "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
+    "object-literal-sort-keys": false,
     "prettier": true,
     "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"]
   }

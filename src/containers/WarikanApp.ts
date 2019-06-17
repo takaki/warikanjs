@@ -10,11 +10,11 @@ import {
 import { Warikan } from "../components/Warikan";
 import { IDataStore } from "../models/DataStore";
 
-export function mapStateToProps(dataStore: IDataStore) {
+function mapStateToProps(dataStore: IDataStore) {
   return { dataStore };
 }
 
-export function mapDispatchToProps(dispatch: Dispatch<ModelAction>) {
+function mapDispatchToProps(dispatch: Dispatch<ModelAction>) {
   return {
     addEntry: () => dispatch(addEntry()),
     delEntry: (i: number) => dispatch(delEntry(i)),
@@ -23,7 +23,7 @@ export function mapDispatchToProps(dispatch: Dispatch<ModelAction>) {
   };
 }
 
-export default connect(
+export const WarikanApp = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Warikan);

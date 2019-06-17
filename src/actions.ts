@@ -1,4 +1,9 @@
-import { ADD_ENTRY, DEL_ENTRY, UPDATE_AMOUNT, UPDATE_NUMBER } from './constants';
+import {
+  ADD_ENTRY,
+  DEL_ENTRY,
+  UPDATE_AMOUNT,
+  UPDATE_NUMBER
+} from "./constants";
 
 interface IAddEntry {
   type: ADD_ENTRY;
@@ -31,7 +36,7 @@ export type ModelAction = IAddEntry | IDelEntry | IUpdateAmount | IUpdateNumber;
 
 export function addEntry(): IAddEntry {
   return {
-    type: ADD_ENTRY,
+    type: ADD_ENTRY
   };
 }
 
@@ -39,8 +44,8 @@ export function delEntry(i: number): IDelEntry {
   return {
     type: DEL_ENTRY,
     payload: {
-      index: i,
-    },
+      index: i
+    }
   };
 }
 
@@ -49,8 +54,8 @@ export function updateAmount(i: number, d: number): IUpdateAmount {
     type: UPDATE_AMOUNT,
     payload: {
       index: i,
-      diff: d,
-    },
+      diff: d
+    }
   };
 }
 
@@ -59,7 +64,7 @@ export function updateNumber(i: number, d: number): IUpdateNumber {
     type: UPDATE_NUMBER,
     payload: {
       index: i,
-      diff: d,
-    },
+      diff: d
+    }
   };
 }

@@ -13,8 +13,6 @@
     "@types/react-redux": "^7.1.0",
     "@types/redux": "^3.6.0",
     "@types/redux-actions": "^2.6.1",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
     "fp-ts": "^1.18.2",
     "gh-pages": "^2.0.1",
     "monocle-ts": "^1.7.2",
@@ -44,6 +42,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "@types/enzyme": "^3.9.3",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@typescript-eslint/eslint-plugin-tslint": "^1.10.2",

@@ -15,13 +15,9 @@ const num = Lens.fromProp<IEntryState>()("num");
 
 const modify = (diff: number) => (x: number): number => Math.max(x + diff, 0);
 
-export const modifyAmount = (diff: number) => (
-  self: IEntryState
-): IEntryState => amount.modify(modify(diff))(self);
+export const modifyAmount = (diff: number) => amount.modify(modify(diff));
 
-export const modifyNumber = (diff: number) => (
-  self: IEntryState
-): IEntryState => num.modify(modify(diff))(self);
+export const modifyNumber = (diff: number) => num.modify(modify(diff));
 
 export const entryTotal = (self: IEntryState): number =>
   amount.get(self) * num.get(self);

@@ -13,26 +13,17 @@ export const defaultDataStore: IDataStore = {
 
 const entries = Lens.fromProp<IDataStore>()("entries");
 
-export const addEntry = (amount: number, num: number) => (
-  self: IDataStore
-): IDataStore => entries.modify(a => snoc(a, { amount, num }))(self);
+export const addEntry = (amount: number, num: number) =>
+  entries.modify(a => snoc(a, { amount, num }));
 
-export const delEntry = (index: number) => (self: IDataStore): IDataStore =>
-  entries.modify(a => deleteAt(index, a).getOrElse(a))(self);
+export const delEntry = (index: number) =>
+  entries.modify(a => deleteAt(index, a).getOrElse(a));
 
-export const modifyAmount = (index: number, diff: number) => (
-  self: IDataStore
-): IDataStore =>
-  entries.modify(a => modifyAt(a, index, E.modifyAmount(diff)).getOrElse(a))(
-    self
-  );
+export const modifyAmount = (index: number, diff: number) =>
+  entries.modify(a => modifyAt(a, index, E.modifyAmount(diff)).getOrElse(a));
 
-export const modifyNumber = (index: number, diff: number) => (
-  self: IDataStore
-): IDataStore =>
-  entries.modify(a => modifyAt(a, index, E.modifyNumber(diff)).getOrElse(a))(
-    self
-  );
+export const modifyNumber = (index: number, diff: number) =>
+  entries.modify(a => modifyAt(a, index, E.modifyNumber(diff)).getOrElse(a));
 
 export const total = (self: IDataStore): number =>
   array.foldMap(monoidSum)(entries.get(self), E.entryTotal);
