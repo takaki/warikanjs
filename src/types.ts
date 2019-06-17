@@ -1,4 +1,4 @@
-import { IDataStore } from './models/DataStore';
+import { IDataStore } from "./models/DataStore";
 
 export interface IWarikanProps {
   dataStore: IDataStore;

@@ -1,16 +1,23 @@
-import { ModelAction } from './actions';
-import { ADD_ENTRY, DEL_ENTRY, UPDATE_AMOUNT, UPDATE_NUMBER } from './constants';
+import { ModelAction } from "./actions";
+import {
+  ADD_ENTRY,
+  DEL_ENTRY,
+  UPDATE_AMOUNT,
+  UPDATE_NUMBER
+} from "./constants";
 import {
   addEntry,
   defaultDataStore,
   delEntry,
   IDataStore,
   modifyAmount,
-  modifyNumber,
-} from './models/DataStore';
+  modifyNumber
+} from "./models/DataStore";
 
-export function modelReducer(dataStore: IDataStore = defaultDataStore,
-                             action: ModelAction): IDataStore {
+export function modelReducer(
+  dataStore: IDataStore = defaultDataStore,
+  action: ModelAction
+): IDataStore {
   switch (action.type) {
     case ADD_ENTRY:
       return addEntry(1000, 1)(dataStore);

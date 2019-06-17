@@ -1,6 +1,6 @@
-import { Button } from '@material-ui/core';
-import { Delete } from '@material-ui/icons';
-import * as React from 'react';
+import { Button } from "@material-ui/core";
+import { Delete } from "@material-ui/icons";
+import * as React from "react";
 
 interface IDelButtonProps {
   index: number;
@@ -8,7 +8,6 @@ interface IDelButtonProps {
 }
 
 export class DelButton extends React.Component<IDelButtonProps> {
-
   constructor(props: IDelButtonProps) {
     super(props);
   }
@@ -20,13 +19,14 @@ export class DelButton extends React.Component<IDelButtonProps> {
         // mini={true}
         className="or-trash-button"
         onClick={this.onClick}
-        href="">
-        <Delete/>
+        href=""
+      >
+        <Delete />
       </Button>
     );
   }
 
   private onClick = () => {
     this.props.onClick(this.props.index);
-  }
+  };
 }
