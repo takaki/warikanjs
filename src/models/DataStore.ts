@@ -30,8 +30,8 @@ export const modifyAmount = (index: number, diff: number) =>
 export const modifyNumber = (index: number, diff: number) =>
   entries.modify(indexEntry.index(index).modify(E.modifyNumber(diff)));
 
-export const total = (self: IDataStore): number =>
-  foldMap(monoidSum)(E.entryTotal)(entries.get(self));
+export const total = (entryStates: E.IEntryState[]): number =>
+  foldMap(monoidSum)(E.entryTotal)(entryStates);
 
-export const totalNumber = (self: IDataStore): number =>
-  foldMap(monoidSum)((x: E.IEntryState) => x.num)(entries.get(self));
+export const totalNumber = (entryStates: E.IEntryState[]): number =>
+  foldMap(monoidSum)((x: E.IEntryState) => x.num)(entryStates);

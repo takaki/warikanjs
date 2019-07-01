@@ -9,7 +9,7 @@ import {
 import { Add } from "@material-ui/icons";
 import { mapWithIndex } from "fp-ts/lib/Array";
 import * as React from "react";
-import { IDataStore, total, totalNumber } from "../models/DataStore";
+import { total, totalNumber } from "../models/DataStore";
 import * as E from "../models/EntryState";
 import { IWarikanProps } from "../types";
 import { DelButton } from "./DelButton";
@@ -20,13 +20,13 @@ export const Warikan = (props: IWarikanProps) => {
   return (
     <div className="App">
       <div className="total-line">
-        合計: <span id="total">{total(props.dataStore)}</span>円 ({" "}
-        <span id="total-number">{totalNumber(props.dataStore)}</span> 人)
+        合計: <span id="total">{total(props.entries)}</span>円 ({" "}
+        <span id="total-number">{totalNumber(props.entries)}</span> 人)
       </div>
       <Table>
         <TableBody>
           <TableContent
-            dataStore={props.dataStore}
+            entries={props.entries}
             delEntry={props.delEntry}
             updateAmount={props.updateAmount}
             updateNumber={props.updateNumber}
@@ -49,7 +49,7 @@ export const Warikan = (props: IWarikanProps) => {
 };
 
 const TableContent: React.FC<{
-  dataStore: IDataStore;
+  entries: E.IEntryState[];
   updateAmount: (i: number, d: number) => void;
   updateNumber: (i: number, d: number) => void;
   delEntry: (i: number) => void;
@@ -132,6 +132,6 @@ const TableContent: React.FC<{
           </TableCell>
         </TableRow>
       </React.Fragment>
-    ))(props.dataStore.entries)}
+    ))(props.entries)}
   </React.Fragment>
 );

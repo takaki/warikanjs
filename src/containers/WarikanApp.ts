@@ -11,7 +11,7 @@ import { Warikan } from "../components/Warikan";
 import { IDataStore } from "../models/DataStore";
 
 function mapStateToProps(dataStore: IDataStore) {
-  return { dataStore };
+  return { ...dataStore };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<ModelAction>) {
