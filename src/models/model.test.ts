@@ -53,7 +53,7 @@ test("total", () => {
     addEntry(2000, 2),
     addEntry(3000, 3)
   )(ds);
-  expect(total(added)).toBe(14000);
+  expect(total(added.entries)).toBe(14000);
 });
 
 const es: E.IEntryState = { amount: 1000, num: 10 };

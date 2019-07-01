@@ -7,10 +7,10 @@ interface IModifierAmountProps {
   modifyAmount: (i: number, d: number) => void;
 }
 
-export const ModifyAmount = (props: IModifierAmountProps) => {
-  const update = () => {
+export const ModifyAmount: React.FC<IModifierAmountProps> = props => {
+  const update = React.useCallback(() => {
     props.modifyAmount(props.index, props.diff);
-  };
+  }, [props]);
   const icon = (props.diff > 0 ? "+" : "") + props.diff;
   return (
     <Button
