@@ -1,5 +1,7 @@
 import { array, deleteAt, snoc } from "fp-ts/lib/Array";
+import { constant } from "fp-ts/lib/function";
 import { monoidSum } from "fp-ts/lib/Monoid";
+import { getOrElse } from "fp-ts/lib/Option";
 import { Lens } from "monocle-ts";
 import { indexArray } from "monocle-ts/lib/Index/Array";
 import * as E from "./EntryState";
@@ -20,7 +22,7 @@ export const addEntry = (amount: number, num: number) =>
   entries.modify(a => snoc(a, { amount, num }));
 
 export const delEntry = (index: number) =>
-  entries.modify(a => deleteAt(index, a).getOrElse(a));
+  entries.modify(a => getOrElse(constant(a))(deleteAt(index)(a)));
 
 export const modifyAmount = (index: number, diff: number) =>
   entries.modify(indexEntry.index(index).modify(E.modifyAmount(diff)));
