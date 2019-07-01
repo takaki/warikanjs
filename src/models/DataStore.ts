@@ -1,4 +1,4 @@
-import { array, deleteAt, snoc } from "fp-ts/lib/Array";
+import { deleteAt, foldMap, snoc } from "fp-ts/lib/Array";
 import { constant } from "fp-ts/lib/function";
 import { monoidSum } from "fp-ts/lib/Monoid";
 import { getOrElse } from "fp-ts/lib/Option";
@@ -31,7 +31,7 @@ export const modifyNumber = (index: number, diff: number) =>
   entries.modify(indexEntry.index(index).modify(E.modifyNumber(diff)));
 
 export const total = (self: IDataStore): number =>
-  array.foldMap(monoidSum)(entries.get(self), E.entryTotal);
+  foldMap(monoidSum)(E.entryTotal)(entries.get(self));
 
 export const totalNumber = (self: IDataStore): number =>
-  array.foldMap(monoidSum)(entries.get(self), x => x.num);
+  foldMap(monoidSum)((x: E.IEntryState) => x.num)(entries.get(self));
