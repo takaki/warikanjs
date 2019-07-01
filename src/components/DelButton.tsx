@@ -7,26 +7,20 @@ interface IDelButtonProps {
   onClick: (i: number) => void;
 }
 
-export class DelButton extends React.Component<IDelButtonProps> {
-  constructor(props: IDelButtonProps) {
-    super(props);
-  }
+export const DelButton: React.FC<IDelButtonProps> = props => {
+  const onClick = React.useCallback(() => {
+    props.onClick(props.index);
+  }, [props]);
 
-  public render() {
-    return (
-      <Button
-        color="primary"
-        // mini={true}
-        className="or-trash-button"
-        onClick={this.onClick}
-        href=""
-      >
-        <Delete />
-      </Button>
-    );
-  }
-
-  private onClick = () => {
-    this.props.onClick(this.props.index);
-  };
-}
+  return (
+    <Button
+      color="primary"
+      // mini={true}
+      className="or-trash-button"
+      onClick={onClick}
+      href=""
+    >
+      <Delete />
+    </Button>
+  );
+};

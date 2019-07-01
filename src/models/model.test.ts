@@ -1,4 +1,4 @@
-import { pipe } from "fp-ts/lib/function";
+import { flow } from "fp-ts/lib/function";
 import {
   addEntry,
   defaultDataStore,
@@ -23,7 +23,7 @@ test("addEntry", () => {
 });
 
 test("delEntry", () => {
-  const added = pipe(
+  const added = flow(
     addEntry(1000, 1),
     addEntry(2000, 2),
     addEntry(3000, 3),
@@ -35,7 +35,7 @@ test("delEntry", () => {
 });
 
 test("modify", () => {
-  const added = pipe(
+  const added = flow(
     addEntry(1000, 1),
     addEntry(2000, 2),
     modifyAmount(0, 100),
@@ -48,12 +48,12 @@ test("modify", () => {
 });
 
 test("total", () => {
-  const added = pipe(
+  const added = flow(
     addEntry(1000, 1),
     addEntry(2000, 2),
     addEntry(3000, 3)
   )(ds);
-  expect(total(added)).toBe(14000);
+  expect(total(added.entries)).toBe(14000);
 });
 
 const es: E.IEntryState = { amount: 1000, num: 10 };

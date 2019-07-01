@@ -5,11 +5,6 @@ export interface IEntryState {
   num: number;
 }
 
-const defaultEntryState: IEntryState = {
-  amount: 0,
-  num: 0
-};
-
 const amount = Lens.fromProp<IEntryState>()("amount");
 const num = Lens.fromProp<IEntryState>()("num");
 

@@ -1,7 +1,7 @@
-import { IDataStore } from "./models/DataStore";
+import { IEntryState } from "./models/EntryState";
 
 export interface IWarikanProps {
-  dataStore: IDataStore;
+  entries: IEntryState[];
   addEntry: () => void;
   delEntry: (i: number) => void;
   updateAmount: (i: number, d: number) => void;
