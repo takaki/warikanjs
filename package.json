@@ -2,7 +2,7 @@
   "name": "warikanjs",
   "version": "0.2.0",
   "private": true,
-  "homepage": "https://takaki.github.io/warikanjs/",
+  "homepage": "https://takakan.gitlab.io/warikanjs/",
   "dependencies": {
     "@material-ui/core": "^4.1.3",
     "@material-ui/icons": "^4.2.1",
