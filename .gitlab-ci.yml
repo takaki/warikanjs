@@ -5,8 +5,6 @@ cache:
   - node_modules/
 
 before_script:
-#  - npm install yarn
-  - apk add yarn
   - yarn install
 
 pages:
