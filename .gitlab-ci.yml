@@ -3,7 +3,6 @@ image: node:10-slim
 cache:
   paths:
   - node_modules/
-  - .yarn
 
 before_script:
   - yarn install
