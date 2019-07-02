@@ -1,0 +1,30 @@
+image: node:10-slim
+
+cache:
+  paths:
+  - node_modules/
+
+before_script:
+  - npm install yarn
+  - yarn install
+
+pages:
+  stage: deploy
+#  variables:
+#    CI: "false"
+  script:
+  - CI=false yarn run build
+  - mv public _public
+  - mv build public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
+
+test:
+  stage: test
+  script:
+  - yarn run test
+  except:
+  - master
