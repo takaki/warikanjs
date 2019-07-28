@@ -1,11 +1,9 @@
-import { Lens } from "monocle-ts";
 import {
   ADD_ENTRY,
   DEL_ENTRY,
   UPDATE_AMOUNT,
   UPDATE_NUMBER
 } from "./constants";
-import * as E from "./models/EntryState";
 import {
   addEntry,
   defaultRootState,
