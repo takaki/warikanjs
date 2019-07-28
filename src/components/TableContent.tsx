@@ -68,8 +68,8 @@ const TableContent: React.FC<Props> = props => {
   );
 };
 
-const mapStateToProps = (state: IRootState): IStateProps => ({
-  entries: state.entries
-});
-
-export const TableContentComponent = connect(mapStateToProps)(TableContent);
+export const TableContentComponent = connect(
+  (state: IRootState): IStateProps => ({
+    entries: state.entries
+  })
+)(TableContent);

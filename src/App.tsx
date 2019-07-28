@@ -1,4 +1,3 @@
-// tslint:disable-next-line:no-submodule-imports
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import * as React from "react";
 import { Provider } from "react-redux";
