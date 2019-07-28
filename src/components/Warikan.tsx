@@ -9,7 +9,7 @@ import {
 import { Add } from "@material-ui/icons";
 import { mapWithIndex } from "fp-ts/lib/Array";
 import * as React from "react";
-import { total, totalNumber } from "../models/DataStore";
+import { total, totalNumber } from "../models/RootState";
 import * as E from "../models/EntryState";
 import { IWarikanProps } from "../types";
 import { DelButton } from "./DelButton";

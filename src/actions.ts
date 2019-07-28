@@ -32,7 +32,7 @@ interface IUpdateNumber {
   };
 }
 
-export type ModelAction = IAddEntry | IDelEntry | IUpdateAmount | IUpdateNumber;
+export type RootAction = IAddEntry | IDelEntry | IUpdateAmount | IUpdateNumber;
 
 export function addEntry(): IAddEntry {
   return {

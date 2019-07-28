@@ -1,4 +1,4 @@
-import { ModelAction } from "./actions";
+import { RootAction } from "./actions";
 import {
   ADD_ENTRY,
   DEL_ENTRY,
@@ -7,27 +7,28 @@ import {
 } from "./constants";
 import {
   addEntry,
-  defaultDataStore,
+  defaultRootState,
   delEntry,
-  IDataStore,
+  IRootState,
   modifyAmount,
-  modifyNumber
-} from "./models/DataStore";
+  modifyNumber,
+  RootState
+} from "./models/RootState";
 
-export function modelReducer(
-  dataStore: IDataStore = defaultDataStore,
-  action: ModelAction
-): IDataStore {
+export function rootReducer(
+  rootState: RootState = defaultRootState,
+  action: RootAction
+): IRootState {
   switch (action.type) {
     case ADD_ENTRY:
-      return addEntry(1000, 1)(dataStore);
+      return addEntry(1000, 1)(rootState);
     case DEL_ENTRY:
-      return delEntry(action.payload.index)(dataStore);
+      return delEntry(action.payload.index)(rootState);
     case UPDATE_AMOUNT:
-      return modifyAmount(action.payload.index, action.payload.diff)(dataStore);
+      return modifyAmount(action.payload.index, action.payload.diff)(rootState);
     case UPDATE_NUMBER:
-      return modifyNumber(action.payload.index, action.payload.diff)(dataStore);
+      return modifyNumber(action.payload.index, action.payload.diff)(rootState);
     default:
-      return dataStore;
+      return rootState;
   }
 }

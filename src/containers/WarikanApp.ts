@@ -3,18 +3,18 @@ import { Dispatch } from "redux";
 import {
   addEntry,
   delEntry,
-  ModelAction,
+  RootAction,
   updateAmount,
   updateNumber
 } from "../actions";
 import { Warikan } from "../components/Warikan";
-import { IDataStore } from "../models/DataStore";
+import { IRootState } from "../models/RootState";
 
-function mapStateToProps(dataStore: IDataStore) {
+function mapStateToProps(dataStore: IRootState) {
   return { ...dataStore };
 }
 
-function mapDispatchToProps(dispatch: Dispatch<ModelAction>) {
+function mapDispatchToProps(dispatch: Dispatch<RootAction>) {
   return {
     addEntry: () => dispatch(addEntry()),
     delEntry: (i: number) => dispatch(delEntry(i)),
