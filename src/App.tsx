@@ -3,11 +3,10 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import { RootAction } from "./actions";
 import "./App.css";
-import { WarikanApp } from "./containers/WarikanApp";
+import { WarikanApp } from "./components/Warikan";
 import { addEntry, defaultRootState, IRootState } from "./models/RootState";
-import { rootReducer } from "./reducers";
+import { RootAction, rootReducer } from "./store";
 
 const store = createStore<IRootState, RootAction, any, any>(
   rootReducer,

@@ -1,43 +1,49 @@
-import {
-  Fab,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow
-} from "@material-ui/core";
+import { Fab, Table, TableBody } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
-import { mapWithIndex } from "fp-ts/lib/Array";
+import { flow } from "fp-ts/lib/function";
 import * as React from "react";
-import { total, totalNumber } from "../models/RootState";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import { ADD_ENTRY } from "../constants";
 import * as E from "../models/EntryState";
-import { IWarikanProps } from "../types";
-import { DelButton } from "./DelButton";
-import { ModifyAmount } from "./ModifyAmount";
-import { ModifyNumber } from "./ModifyNumber";
+import { IRootState, total, totalNumber } from "../models/RootState";
+import { IAddEntry, RootAction } from "../store";
+import { TableContentComponent } from "./TableContent";
 
-export const Warikan = (props: IWarikanProps) => {
+export const doAddEntry = (): IAddEntry => ({
+  type: ADD_ENTRY
+});
+
+interface IStateProps {
+  entries: E.IEntryState[];
+}
+
+interface IDispatchProps {
+  addEntry: typeof doAddEntry;
+}
+
+type Props = IStateProps & IDispatchProps;
+
+const Warikan: React.FC<Props> = props => {
+  const { entries, addEntry } = props;
+  const amount = total(entries);
+  const num = totalNumber(entries);
   return (
     <div className="App">
       <div className="total-line">
-        合計: <span id="total">{total(props.entries)}</span>円 ({" "}
-        <span id="total-number">{totalNumber(props.entries)}</span> 人)
+        合計: <span id="total">{amount}</span>円 ({" "}
+        <span id="total-number">{num}</span> 人)
       </div>
       <Table>
         <TableBody>
-          <TableContent
-            entries={props.entries}
-            delEntry={props.delEntry}
-            updateAmount={props.updateAmount}
-            updateNumber={props.updateNumber}
-          />
+          <TableContentComponent />
         </TableBody>
       </Table>
       <div>
         <Fab
           href=""
           color="secondary"
-          onClick={props.addEntry}
+          onClick={addEntry}
           className="or-plus-button"
           size="small"
         >
@@ -48,90 +54,20 @@ export const Warikan = (props: IWarikanProps) => {
   );
 };
 
-const TableContent: React.FC<{
-  entries: E.IEntryState[];
-  updateAmount: (i: number, d: number) => void;
-  updateNumber: (i: number, d: number) => void;
-  delEntry: (i: number) => void;
-}> = props => (
-  <React.Fragment>
-    {mapWithIndex((i: number, e: E.IEntryState) => (
-      <React.Fragment key={i}>
-        <TableRow>
-          <TableCell className="or-amount-column">
-            <ModifyAmount
-              index={i}
-              diff={-500}
-              modifyAmount={props.updateAmount}
-            />
-          </TableCell>
-          <TableCell className="or-amount-column">
-            <ModifyAmount
-              index={i}
-              diff={-100}
-              modifyAmount={props.updateAmount}
-            />
-          </TableCell>
-          <TableCell className="or-amount-column" rowSpan={2}>
-            <Paper>
-              <div className="amount-line">{e.amount}円</div>
-              <div className="number-line">{e.num}人</div>
-            </Paper>
-          </TableCell>
-          <TableCell className="or-amount-column">
-            <ModifyAmount
-              index={i}
-              diff={100}
-              modifyAmount={props.updateAmount}
-            />
-          </TableCell>
-          <TableCell className="or-amount-column">
-            <ModifyAmount
-              index={i}
-              diff={500}
-              modifyAmount={props.updateAmount}
-            />
-          </TableCell>
-          <TableCell className="or-subtotal-column">
-            <DelButton index={i} onClick={props.delEntry} />
-          </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="or-number-column">
-            <ModifyNumber
-              index={i}
-              diff={-5}
-              modifyNumber={props.updateNumber}
-            />
-          </TableCell>
-          <TableCell className="or-number-column">
-            <ModifyNumber
-              index={i}
-              diff={-1}
-              modifyNumber={props.updateNumber}
-            />
-          </TableCell>
-          <TableCell className="or-number-column">
-            <ModifyNumber
-              index={i}
-              diff={1}
-              modifyNumber={props.updateNumber}
-            />
-          </TableCell>
-          <TableCell className="or-number-column">
-            <ModifyNumber
-              index={i}
-              diff={5}
-              modifyNumber={props.updateNumber}
-            />
-          </TableCell>
-          <TableCell className="or-subtotal-column">
-            <div className="subtotal-box">
-              <span className="subtotal-line">{E.entryTotal(e)} 円</span>
-            </div>
-          </TableCell>
-        </TableRow>
-      </React.Fragment>
-    ))(props.entries)}
-  </React.Fragment>
-);
+const mapStateToProps = (state: IRootState): IStateProps => ({
+  entries: state.entries
+});
+
+const mapDispatchToProps = (
+  dispatch: Dispatch<RootAction>
+): IDispatchProps => ({
+  addEntry: flow(
+    doAddEntry,
+    dispatch
+  )
+});
+
+export const WarikanApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Warikan);

@@ -1,16 +1,34 @@
 import { Button } from "@material-ui/core";
+import { flow } from "fp-ts/lib/function";
 import * as React from "react";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import { UPDATE_AMOUNT } from "../constants";
+import { IUpdateAmount, RootAction } from "../store";
+
+const doUpdateAmount = (i: number, d: number): IUpdateAmount => ({
+  type: UPDATE_AMOUNT,
+  payload: {
+    index: i,
+    diff: d
+  }
+});
 
 interface IModifierAmountProps {
   index: number;
   diff: number;
-  modifyAmount: (i: number, d: number) => void;
+}
+interface IDispatchProps {
+  updateAmount: typeof doUpdateAmount;
 }
 
-export const ModifyAmount: React.FC<IModifierAmountProps> = props => {
+type Props = IModifierAmountProps & IDispatchProps;
+
+const ModifyAmount: React.FC<Props> = props => {
+  const { updateAmount, index, diff } = props;
   const update = React.useCallback(() => {
-    props.modifyAmount(props.index, props.diff);
-  }, [props]);
+    updateAmount(index, diff);
+  }, [updateAmount, index, diff]);
   const icon = (props.diff > 0 ? "+" : "") + props.diff;
   return (
     <Button
@@ -24,3 +42,13 @@ export const ModifyAmount: React.FC<IModifierAmountProps> = props => {
     </Button>
   );
 };
+
+export const ModifyAmountComponent = connect(
+  null,
+  (dispatch: Dispatch<RootAction>): IDispatchProps => ({
+    updateAmount: flow(
+      doUpdateAmount,
+      dispatch
+    )
+  })
+)(ModifyAmount);
