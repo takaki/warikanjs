@@ -1,17 +1,15 @@
-// tslint:disable-next-line:no-submodule-imports
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import { ModelAction } from "./actions";
 import "./App.css";
-import { WarikanApp } from "./containers/WarikanApp";
-import { addEntry, defaultDataStore, IDataStore } from "./models/DataStore";
-import { modelReducer } from "./reducers";
+import { WarikanApp } from "./components/Warikan";
+import { addEntry, defaultRootState, IRootState } from "./models/RootState";
+import { RootAction, rootReducer } from "./store";
 
-const store = createStore<IDataStore, ModelAction, any, any>(
-  modelReducer,
-  addEntry(1000, 1)(defaultDataStore)
+const store = createStore<IRootState, RootAction, any, any>(
+  rootReducer,
+  addEntry(1000, 1)(defaultRootState)
 );
 
 const theme = createMuiTheme({});

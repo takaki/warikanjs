@@ -1,15 +1,15 @@
 import { flow } from "fp-ts/lib/function";
 import {
   addEntry,
-  defaultDataStore,
+  defaultRootState,
   delEntry,
   modifyAmount,
   modifyNumber,
   total
-} from "./DataStore";
-import * as E from "./EntryState";
+} from "../RootState";
+import * as E from "../EntryState";
 
-const ds = defaultDataStore;
+const ds = defaultRootState;
 
 test("init DataStore", () => {
   expect(ds.entries.length).toBe(0);

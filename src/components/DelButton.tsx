@@ -1,16 +1,33 @@
 import { Button } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
+import { flow } from "fp-ts/lib/function";
 import * as React from "react";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import { DEL_ENTRY } from "../constants";
+import { IDelEntry, RootAction } from "../store";
 
-interface IDelButtonProps {
+const doDelEntry = (i: number): IDelEntry => ({
+  type: DEL_ENTRY,
+  payload: {
+    index: i
+  }
+});
+
+interface IStateProps {
   index: number;
-  onClick: (i: number) => void;
+}
+interface IDispatchProps {
+  delEntry: typeof doDelEntry;
 }
 
-export const DelButton: React.FC<IDelButtonProps> = props => {
+type Props = IStateProps & IDispatchProps;
+
+const DelButton: React.FC<Props> = props => {
+  const { delEntry, index } = props;
   const onClick = React.useCallback(() => {
-    props.onClick(props.index);
-  }, [props]);
+    delEntry(index);
+  }, [delEntry, index]);
 
   return (
     <Button
@@ -24,3 +41,12 @@ export const DelButton: React.FC<IDelButtonProps> = props => {
     </Button>
   );
 };
+export const DelButtonComponent = connect(
+  null,
+  (dispatch: Dispatch<RootAction>): IDispatchProps => ({
+    delEntry: flow(
+      doDelEntry,
+      dispatch
+    )
+  })
+)(DelButton);

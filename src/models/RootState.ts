@@ -6,15 +6,17 @@ import { Lens } from "monocle-ts";
 import { indexArray } from "monocle-ts/lib/Index/Array";
 import * as E from "./EntryState";
 
-export interface IDataStore {
+export interface IRootState {
   entries: E.IEntryState[];
 }
 
-export const defaultDataStore: IDataStore = {
+const entries = Lens.fromProp<IRootState>()("entries");
+
+export type RootState = IRootState;
+
+export const defaultRootState: IRootState = {
   entries: []
 };
-
-const entries = Lens.fromProp<IDataStore>()("entries");
 
 const indexEntry = indexArray<E.IEntryState>();
 
