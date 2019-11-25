@@ -1,33 +1,22 @@
 import { Fab, Table, TableBody } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
-import { flow } from "fp-ts/lib/function";
 import * as React from "react";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ADD_ENTRY } from "../constants";
-import * as E from "../models/EntryState";
-import { IRootState, total, totalNumber } from "../models/RootState";
-import { IAddEntry, RootAction } from "../store";
-import { TableContentComponent } from "./TableContent";
+import { RootState, total, totalNumber } from "../models/RootState";
+import { IAddEntry } from "../store";
+import { TableContent } from "./TableContent";
 
 export const doAddEntry = (): IAddEntry => ({
   type: ADD_ENTRY
 });
 
-interface IStateProps {
-  entries: E.IEntryState[];
-}
-
-interface IDispatchProps {
-  addEntry: typeof doAddEntry;
-}
-
-type Props = IStateProps & IDispatchProps;
-
-const Warikan: React.FC<Props> = props => {
-  const { entries, addEntry } = props;
+export const WarikanApp: React.FC = () => {
+  const entries = useSelector((state: RootState) => state.entries);
+  const dispatch = useDispatch();
   const amount = total(entries);
   const num = totalNumber(entries);
+  const addEntry = React.useCallback(() => dispatch(doAddEntry()), [dispatch]);
   return (
     <div className="App">
       <div className="total-line">
@@ -36,7 +25,7 @@ const Warikan: React.FC<Props> = props => {
       </div>
       <Table>
         <TableBody>
-          <TableContentComponent />
+          <TableContent />
         </TableBody>
       </Table>
       <div>
@@ -53,21 +42,3 @@ const Warikan: React.FC<Props> = props => {
     </div>
   );
 };
-
-const mapStateToProps = (state: IRootState): IStateProps => ({
-  entries: state.entries
-});
-
-const mapDispatchToProps = (
-  dispatch: Dispatch<RootAction>
-): IDispatchProps => ({
-  addEntry: flow(
-    doAddEntry,
-    dispatch
-  )
-});
-
-export const WarikanApp = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Warikan);

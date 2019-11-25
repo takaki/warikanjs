@@ -1,21 +1,15 @@
 import { Paper, TableCell, TableRow } from "@material-ui/core";
 import { mapWithIndex } from "fp-ts/lib/Array";
 import * as React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import * as E from "../models/EntryState";
 import { IRootState } from "../models/RootState";
-import { DelButtonComponent } from "./DelButton";
+import { DelButton } from "./DelButton";
 import { ModifyAmount } from "./ModifyAmount";
-import { ModifyNumberComponent } from "./ModifyNumber";
+import { ModifyNumber } from "./ModifyNumber";
 
-interface IStateProps {
-  entries: E.IEntryState[];
-}
-
-type Props = IStateProps;
-
-const TableContent: React.FC<Props> = props => {
-  const { entries } = props;
+export const TableContent: React.FC = () => {
+  const entries = useSelector((state: IRootState) => state.entries);
   return (
     <React.Fragment>
       {mapWithIndex((i: number, e: E.IEntryState) => (
@@ -40,21 +34,21 @@ const TableContent: React.FC<Props> = props => {
               <ModifyAmount index={i} diff={500} />
             </TableCell>
             <TableCell className="or-subtotal-column">
-              <DelButtonComponent index={i} />
+              <DelButton index={i} />
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="or-number-column">
-              <ModifyNumberComponent index={i} diff={-5} />
+              <ModifyNumber index={i} diff={-5} />
             </TableCell>
             <TableCell className="or-number-column">
-              <ModifyNumberComponent index={i} diff={-1} />
+              <ModifyNumber index={i} diff={-1} />
             </TableCell>
             <TableCell className="or-number-column">
-              <ModifyNumberComponent index={i} diff={1} />
+              <ModifyNumber index={i} diff={1} />
             </TableCell>
             <TableCell className="or-number-column">
-              <ModifyNumberComponent index={i} diff={5} />
+              <ModifyNumber index={i} diff={5} />
             </TableCell>
             <TableCell className="or-subtotal-column">
               <div className="subtotal-box">
@@ -67,9 +61,3 @@ const TableContent: React.FC<Props> = props => {
     </React.Fragment>
   );
 };
-
-export const TableContentComponent = connect(
-  (state: IRootState): IStateProps => ({
-    entries: state.entries
-  })
-)(TableContent);
