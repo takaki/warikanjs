@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import * as E from "../models/EntryState";
 import { IRootState } from "../models/RootState";
 import { DelButtonComponent } from "./DelButton";
-import { ModifyAmountComponent } from "./ModifyAmount";
+import { ModifyAmount } from "./ModifyAmount";
 import { ModifyNumberComponent } from "./ModifyNumber";
 
 interface IStateProps {
@@ -22,10 +22,10 @@ const TableContent: React.FC<Props> = props => {
         <React.Fragment key={i}>
           <TableRow>
             <TableCell className="or-amount-column">
-              <ModifyAmountComponent index={i} diff={-500} />
+              <ModifyAmount index={i} diff={-500} />
             </TableCell>
             <TableCell className="or-amount-column">
-              <ModifyAmountComponent index={i} diff={-100} />
+              <ModifyAmount index={i} diff={-100} />
             </TableCell>
             <TableCell className="or-amount-column" rowSpan={2}>
               <Paper>
@@ -34,10 +34,10 @@ const TableContent: React.FC<Props> = props => {
               </Paper>
             </TableCell>
             <TableCell className="or-amount-column">
-              <ModifyAmountComponent index={i} diff={100} />
+              <ModifyAmount index={i} diff={100} />
             </TableCell>
             <TableCell className="or-amount-column">
-              <ModifyAmountComponent index={i} diff={500} />
+              <ModifyAmount index={i} diff={500} />
             </TableCell>
             <TableCell className="or-subtotal-column">
               <DelButtonComponent index={i} />
